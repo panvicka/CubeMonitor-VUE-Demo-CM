@@ -1,0 +1,169 @@
+/* Cloak elements on initial load to hide the possible display of {{ ... }} 
+ * Add to the app tag or to specific tags
+ * To display "loading...", change to the following:
+ *    [v-cloak] > * { display:none }
+ *    [v-cloak]::before { content: "loading…" }
+ */
+[v-cloak] {
+  display: none;
+}
+
+/*  Colours for Syntax Highlighted pre's */
+.syntax-highlight {
+  color: white;
+  background-color: black;
+  padding: 5px 10px;
+}
+.syntax-highlight > .key {
+  color: #ffbf35;
+}
+.syntax-highlight > .string {
+  color: #5dff39;
+}
+.syntax-highlight > .number {
+  color: #70aeff;
+}
+.syntax-highlight > .boolean {
+  color: #b993ff;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.collapse-header {
+  color: black;
+}
+
+.collapse-header a {
+  color: black;
+  font-size: 1.1em;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+.collapse-header a:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+.wrapper {
+  width: 98%;
+  margin: 2em;
+  padding: 2em;
+}
+
+.top-panel {
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  /* max-width: 1px; */
+}
+
+.flex-container {
+  margin-bottom: 1em;
+  margin-top: 0.3em;
+  display: flex;
+  padding: 1em;
+  /* border: 1px solid blue; */
+  background-color: rgba(236, 236, 236, 0.705);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.flex-container-row {
+  flex-direction: row;
+}
+
+.flex-container-item {
+  margin: 0.2em;
+  padding: 0.5em;
+  background-color: rgba(255, 255, 255, 0.849);
+  border: 2px solid rgb(190, 190, 190);
+  min-width: 200px;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-container-item-button {
+  margin: 0.2em;
+  background-color: rgba(255, 255, 255, 0.849);
+  width: 30%;
+  min-width: 250px;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-container-item-button button {
+  width: 100%;
+  text-align: left;
+}
+
+.table {
+  width: 50%;
+}
+
+.table td {
+  padding: 0.2rem;
+}
+
+.flex-container-item-flex {
+  display: flex;
+}
+
+.flex-container-column {
+  flex-direction: column;
+}
+
+.info-logo {
+  width: 60%;
+  min-width: 300px;
+}
+
+.info-toolbar button {
+  margin: 0.3em;
+}
+
+.wider {
+  width: 300px;
+}
+
+.width-half {
+  width: 40%;
+}
+
+.width-halft .custom-range {
+  width: 50%;
+}
+
+.state {
+  /* border: 1px solid rgb(255, 0, 212); */
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.state-on {
+  color: green;
+}
+
+.state-off {
+  color: rgb(196, 4, 4);
+}
+
+.graph-container {
+  max-width: 1500px;
+}

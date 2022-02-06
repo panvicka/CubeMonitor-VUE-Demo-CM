@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!-- Note that adding an appcache really speeds things up after the first load
+   You need to amend the appcache file to meet your needs.
+   Don't forget to change the appcache file if you update ANY
+   of the files in it otherwise the old versions will ALWAYS be used.
+   <html lang="en" manifest="./uibuilder.appcache">
+   -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DEMO-MX-Cube-Vue</title>
+    <meta name="description" content="Node-RED UI Builder - VueJS + bootstrap-vue default template" />
+    <link rel="icon" href="./images/node-blue.ico" />
+    <link type="text/css" rel="stylesheet" href="../uibuilder/vendor/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="../uibuilder/vendor/bootstrap-vue/dist/bootstrap-vue.css" />
+
+    <link type="text/css" rel="stylesheet" href="./index.css" media="all" />
+  </head>
+  <body>
+    <template id="switch-button">
+      <div class="switch-button-control">
+        <div class="switch-button" :class="{ enabled: isEnabled }" @click="toggle" :style="{'--color': color}">
+          <div class="button"></div>
+        </div>
+        <div class="switch-button-label">
+          <slot></slot>
+        </div>
+      </div>
+    </template>
+    <div id="app" v-cloak>
+      <div id="app_container" class="wrapper">
+        <!-- Control panel -->
+        <status-panel
+          :heatbeat="heartBeat"
+          :connection-socket="socketConnectedState"
+          title="HUHUHU"
+          @measurement-start="measurementStart"
+          @measurement-stop="measurementStop"
+        >
+        </status-panel>
+
+        <!-- Backdoors -->
+        <collapsable id="backdoors" title-text="Back door actions">
+          <button-group @set-magic-register="setBackDoor" :item-to-buttonize="backdoorActions"></button-group>
+        </collapsable>
+
+        <!-- Inputs -->
+        <collapsable id="inputs-collapse" title-text="DI">
+          <div class="flex-container">
+            <div v-for="(item, index) in inputs" class="flex-container-item">
+              <digital-input
+                :id="index"
+                :digital-input="item"
+                @input-forced-change="setForcingEnabledAndSendRequest(inputReact, inputs, ...arguments)"
+                @input-forced-value-change="setForcedValueAndSendRequest(inputReact, inputs, ...arguments)"
+              />
+            </div>
+          </div>
+        </collapsable>
+
+        <collapsable id="analog-inputs" title-text="Analog Inputs">
+          <div class="flex-container">
+            <div v-for="(item, index) in analogInputs" class="flex-container-item">
+              <range-signal-name-value :item="item"></range-signal-name-value>
+              <forcing-checkbox
+                :id="index"
+                @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
+              >
+              </forcing-checkbox>
+              <number-input
+                @input-change="setForcedValueAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
+                :id="index"
+                :input="item"
+              ></number-input>
+            </div>
+          </div>
+        </collapsable>
+
+        <collapsable id="analog-outputs" title-text="Analog Outputs">
+          <div class="flex-container">
+            <div v-for="(item, index) in analogOutputs" class="flex-container-item">
+              <range-signal-name-value :item="item"></range-signal-name-value>
+            </div>
+          </div>
+        </collapsable>
+
+        <collapsable id="adc-dac-graph" title-text="ACD1/DAC1 Graph">
+          <div class="graph-container">
+            <chart-3-values
+              ref="childref"
+              id="1"
+              name="adc-dac-canvas"
+              v-bind:data1="analogInputs[0].value"
+              v-bind:data2="analogOutputs[0].value"
+            />
+          </div>
+        </collapsable>
+
+        <!-- Outputs -->
+        <collapsable id="do-collapse" title-text="DO">
+          <div class="flex-container">
+            <div v-for="(item, index) in outputs" class="flex-container-item wider flex-container-item-flex">
+              <digital-output :digital-output="item"></digital-output>
+            </div>
+          </div>
+        </collapsable>
+
+        <!-- Monitor monitoring tool -->
+        <div class="collapse-header">
+          <a v-b-toggle href="#debugging-collapse" @click.prevent>Monitoring tool debugging</a>
+        </div>
+        <b-collapse id="debugging-collapse">
+          <div>
+            <b-card
+              class="mt-3"
+              header="Normal Messages"
+              border-variant="primary"
+              header-bg-variant="primary"
+              header-text-variant="white"
+              align="left"
+            >
+              <p>Messages: Received=<b>{{msgsReceived}}</b>, Sent=<b>{{msgsSent}}</b></p>
+              <pre v-html="hLastRcvd" class="syntax-highlight"></pre>
+              <pre v-html="hLastSent" class="syntax-highlight"></pre>
+              <p slot="footer" class="mb-0">
+                The received message is from the input to the uibuilder node. The send message will appear out of port
+                #1 of the node.
+              </p>
+            </b-card>
+            <b-card
+              class="mt-3"
+              header="Control Messages"
+              border-variant="secondary"
+              header-bg-variant="secondary"
+              header-text-variant="white"
+              align="left"
+            >
+              <p>Control Messages: Received=<b>{{msgsControl}}</b>, Sent=<b>{{msgsCtrlSent}}</b></p>
+              <pre v-html="hLastCtrlRcvd" class="syntax-highlight"></pre>
+              <pre v-html="hLastCtrlSent" class="syntax-highlight"></pre>
+              <p slot="footer" class="mb-0">
+                Control messages always appear out of port #2 of the uibuilder node whether they are from the server or
+                the client. The
+                <code>from</code> property of the message tells you where it came from.
+              </p>
+            </b-card>
+          </div>
+        </b-collapse>
+      </div>
+    </div>
+    <!-- Dont forget to use minified versions of libraries for production, non-min versions for development only -->
+    <!-- These MUST be in the right order. Note no leading / -->
+    <!-- REQUIRED: Socket.IO is loaded only once for all instances. Without this, you don't get a websocket connection -->
+    <script src="../uibuilder/vendor/socket.io/socket.io.js"></script>
+    <!-- --- Vendor Libraries - Load in the right order --- -->
+    <script src="../uibuilder/vendor/vue/dist/vue.js"></script>
+    <!-- dev version with component compiler -->
+    <!-- <script src="../uibuilder/vendor/vue/dist/vue.min.js"></script>   prod version with component compiler -->
+    <!-- <script src="../uibuilder/vendor/vue/dist/vue.runtime.min.js"></script>   prod version without component compiler -->
+    <script src="../uibuilder/vendor/bootstrap-vue/dist/bootstrap-vue.js"></script>
+    <!-- REQUIRED: Sets up Socket listeners and the msg object -->
+    <script src="./uibuilderfe.js"></script>
+    <!-- dev version -->
+    <!-- <script src="./uibuilderfe.min.js"></script>     //prod version -->
+    <!-- OPTIONAL: You probably want this. Put your custom code here -->
+    <script src="./main.js" type="text/javascript"></script>
+  </body>
+</html>
