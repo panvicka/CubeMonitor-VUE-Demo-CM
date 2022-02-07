@@ -1,12 +1,12 @@
 <template>
-  <b-collapse :id="id"> 
-      <slot />
+  <b-collapse :id="id" @hide="$emit('hide')" @show="$emit('show')">
+    <slot />
   </b-collapse>
 </template>
 
 <script>
 export default {
-  name: 'CollapsableContent',
+  name: "CollapsableContent",
   props: {
     id: String,
   },

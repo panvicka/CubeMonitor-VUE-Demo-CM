@@ -15,7 +15,8 @@
     <link rel="icon" href="./images/node-blue.ico" />
     <link type="text/css" rel="stylesheet" href="../uibuilder/vendor/bootstrap/dist/css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="../uibuilder/vendor/bootstrap-vue/dist/bootstrap-vue.css" />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <link type="text/css" rel="stylesheet" href="./index.css" media="all" />
   </head>
   <body>
@@ -29,7 +30,9 @@
         </div>
       </div>
     </template>
+
     <div id="app" v-cloak>
+
       <div id="app_container" class="wrapper">
         <!-- Control panel -->
         <status-panel
@@ -41,71 +44,73 @@
         >
         </status-panel>
 
-        <!-- Backdoors -->
-        <collapsable id="backdoors" title-text="Back door actions">
-          <button-group @set-magic-register="setBackDoor" :item-to-buttonize="backdoorActions"></button-group>
-        </collapsable>
+        <div class="row" id="sortable">
+          <!-- Backdoors -->
+          <collapsable id="backdoors" title-text="Back door actions">
+            <button-group @set-magic-register="setBackDoor" :item-to-buttonize="backdoorActions"></button-group>
+          </collapsable>
 
-        <!-- Inputs -->
-        <collapsable id="inputs-collapse" title-text="DI">
-          <div class="flex-container">
-            <div v-for="(item, index) in inputs" class="flex-container-item">
-              <digital-input
-                :id="index"
-                :digital-input="item"
-                @input-forced-change="setForcingEnabledAndSendRequest(inputReact, inputs, ...arguments)"
-                @input-forced-value-change="setForcedValueAndSendRequest(inputReact, inputs, ...arguments)"
+          <!-- Inputs -->
+          <collapsable id="inputs-collapse" title-text="DI">
+            <div class="flex-container">
+              <div v-for="(item, index) in inputs" class="flex-container-item">
+                <digital-input
+                  :id="index"
+                  :digital-input="item"
+                  @input-forced-change="setForcingEnabledAndSendRequest(inputReact, inputs, ...arguments)"
+                  @input-forced-value-change="setForcedValueAndSendRequest(inputReact, inputs, ...arguments)"
+                />
+              </div>
+            </div>
+          </collapsable>
+
+          <collapsable id="analog-inputs" title-text="Analog Inputs">
+            <div class="flex-container">
+              <div v-for="(item, index) in analogInputs" class="flex-container-item">
+                <range-signal-name-value :item="item"></range-signal-name-value>
+                <forcing-checkbox
+                  :id="index"
+                  @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
+                >
+                </forcing-checkbox>
+                <number-input
+                  @input-change="setForcedValueAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
+                  :id="index"
+                  :input="item"
+                ></number-input>
+              </div>
+            </div>
+          </collapsable>
+
+          <collapsable id="analog-outputs" title-text="Analog Outputs">
+            <div class="flex-container">
+              <div v-for="(item, index) in analogOutputs" class="flex-container-item">
+                <range-signal-name-value :item="item"></range-signal-name-value>
+              </div>
+            </div>
+          </collapsable>
+
+          <collapsable id="adc-dac-graph" title-text="ACD1/DAC1 Graph">
+            <div class="graph-container">
+              <chart-3-values
+                ref="childref"
+                id="1"
+                name="adc-dac-canvas"
+                v-bind:data1="analogInputs[0].value"
+                v-bind:data2="analogOutputs[0].value"
               />
             </div>
-          </div>
-        </collapsable>
+          </collapsable>
 
-        <collapsable id="analog-inputs" title-text="Analog Inputs">
-          <div class="flex-container">
-            <div v-for="(item, index) in analogInputs" class="flex-container-item">
-              <range-signal-name-value :item="item"></range-signal-name-value>
-              <forcing-checkbox
-                :id="index"
-                @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
-              >
-              </forcing-checkbox>
-              <number-input
-                @input-change="setForcedValueAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
-                :id="index"
-                :input="item"
-              ></number-input>
+          <!-- Outputs -->
+          <collapsable id="do-collapse" title-text="DO">
+            <div class="flex-container">
+              <div v-for="(item, index) in outputs" class="flex-container-item wider flex-container-item-flex">
+                <digital-output :digital-output="item"></digital-output>
+              </div>
             </div>
-          </div>
-        </collapsable>
-
-        <collapsable id="analog-outputs" title-text="Analog Outputs">
-          <div class="flex-container">
-            <div v-for="(item, index) in analogOutputs" class="flex-container-item">
-              <range-signal-name-value :item="item"></range-signal-name-value>
-            </div>
-          </div>
-        </collapsable>
-
-        <collapsable id="adc-dac-graph" title-text="ACD1/DAC1 Graph">
-          <div class="graph-container">
-            <chart-3-values
-              ref="childref"
-              id="1"
-              name="adc-dac-canvas"
-              v-bind:data1="analogInputs[0].value"
-              v-bind:data2="analogOutputs[0].value"
-            />
-          </div>
-        </collapsable>
-
-        <!-- Outputs -->
-        <collapsable id="do-collapse" title-text="DO">
-          <div class="flex-container">
-            <div v-for="(item, index) in outputs" class="flex-container-item wider flex-container-item-flex">
-              <digital-output :digital-output="item"></digital-output>
-            </div>
-          </div>
-        </collapsable>
+          </collapsable>
+        </div>
 
         <!-- Monitor monitoring tool -->
         <div class="collapse-header">
@@ -166,5 +171,13 @@
     <!-- <script src="./uibuilderfe.min.js"></script>     //prod version -->
     <!-- OPTIONAL: You probably want this. Put your custom code here -->
     <script src="./main.js" type="text/javascript"></script>
+
+
+    <script defer>
+      $(document).ready(function() {
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+      });
+    </script>
   </body>
 </html>
