@@ -1,5 +1,5 @@
 <template>
-  <b-form-checkbox v-model="inputValue" @change="onChange(id, inputValue)">
+  <b-form-checkbox v-model="inputValue" @change="onChange(id, inputValue)" switch>
     {{ inputValue ? 'forcing enabled' : 'forcing disabled' }}
   </b-form-checkbox>
 </template>

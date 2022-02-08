@@ -167,3 +167,8 @@
 .graph-container {
   max-width: 1500px;
 }
+
+
+.row {
+  flex-direction: column;
+}
