@@ -1,6 +1,6 @@
 <template>
   <div>
-    <collapsable-header :id="id" :text="titleText"></collapsable-header>
+    <collapsable-header :id="id" :text="titleText" :hidden="hidden"></collapsable-header>
     <collapsable-content :id="id" @hide="setHidden" @show="setShown">
       <slot />
     </collapsable-content>

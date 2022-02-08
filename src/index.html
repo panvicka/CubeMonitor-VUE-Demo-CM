@@ -32,7 +32,6 @@
     </template>
 
     <div id="app" v-cloak>
-
       <div id="app_container" class="wrapper">
         <!-- Control panel -->
         <status-panel
@@ -73,11 +72,11 @@
                   @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
                 >
                 </forcing-checkbox>
-                <number-input
+                <range-input-slider
                   @input-change="setForcedValueAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
                   :id="index"
                   :input="item"
-                ></number-input>
+                ></range-input>
               </div>
             </div>
           </collapsable>
@@ -171,7 +170,6 @@
     <!-- <script src="./uibuilderfe.min.js"></script>     //prod version -->
     <!-- OPTIONAL: You probably want this. Put your custom code here -->
     <script src="./main.js" type="text/javascript"></script>
-
 
     <script defer>
       $(document).ready(function() {

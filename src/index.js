@@ -27,6 +27,7 @@ import ControlValueChart from "./components/ControlValueChart.vue";
 import ChartThreeValues from "./components/ChartThreeValues.vue";
 
 import TextOutput from "./components/TextOutput.vue";
+import RangeInputSlider from "./components/RangeInputSlider.vue";
 import Collapsable from "./components/Collapsable.vue";
 import ButtonGroup from "./components/ButtonGroup.vue";
 import StatusPanel from "./components/StatusPanel.vue";
@@ -39,10 +40,10 @@ import RangeSignalNameForcedValue from "./components/RangeSignalNameForcedValue.
 import ForcingCheckBox from "./components/ForcingCheckBox.vue";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faChevronRight, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faChevronRight, faChevronDown);
+library.add(faChevronUp, faChevronDown);
 
 
 ("use strict");
@@ -65,6 +66,7 @@ new Vue({
     "range-signal-name-value": RangeSignalNameValue,
     "range-signal-name-forced-value": RangeSignalNameForcedValue,
     "forcing-checkbox": ForcingCheckBox,
+    "range-input-slider": RangeInputSlider,
     event: Event,
   },
   data: {

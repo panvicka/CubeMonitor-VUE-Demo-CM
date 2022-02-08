@@ -1,13 +1,10 @@
-
 <template>
   <div class="collapse-header">
     <a v-b-toggle :href="`#${id}`" @click.prevent>{{ text }}</a>
     <span class="when-opened">
-      <font-awesome-icon icon="chevron-down" />
-    </span>
-    <span class="when-closed">
-      <font-awesome-icon icon="chevron-right" />
-    </span>
+      <font-awesome-icon v-if="hidden==true" icon="chevron-down" />
+      <font-awesome-icon v-if="hidden==false" icon="chevron-up" />
+     </span>
   </div>
 </template>
 
@@ -17,6 +14,7 @@ export default {
   props: {
     id: String,
     text: String,
+    hidden: Boolean,
   },
 };
 </script>
