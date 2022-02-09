@@ -27,7 +27,7 @@
   color: #b993ff;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
 
 *,
 *::before,
@@ -42,10 +42,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-.collapsable-content { 
+.collapsable-content {
   margin-top: 0.4rem;
   padding: 0.3rem;
   display: flex;
@@ -54,21 +54,11 @@ body {
   width: 100%;
 }
 
-
 .wrapper {
   width: 1000px;
 
   margin: 2em;
   padding: 2em;
-}
-
-.top-panel {
-  margin-top: 0.5em;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-
-  /* max-width: 1px; */
 }
 
 .flex-container {
@@ -96,6 +86,7 @@ body {
   background-color: rgba(255, 255, 255, 0.849);
   border: 2px solid rgb(190, 190, 190);
   min-width: 200px;
+  min-height: 100px;
   border-radius: 10px;
   justify-content: space-between;
   align-items: center;
@@ -130,15 +121,6 @@ body {
 
 .flex-container-column {
   flex-direction: column;
-}
-
-.info-logo {
-  width: 60%;
-  min-width: 300px;
-}
-
-.info-toolbar button {
-  margin: 0.3em;
 }
 
 .wider {

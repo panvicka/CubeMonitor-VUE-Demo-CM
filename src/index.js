@@ -40,16 +40,22 @@ import RangeSignalNameForcedValue from "./components/RangeSignalNameForcedValue.
 import ForcingCheckBox from "./components/ForcingCheckBox.vue";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faChevronUp, faChevronDown, faArrowsAlt, faMicrochip } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronUp,
+  faChevronDown,
+  faArrowsAlt,
+  faMicrochip,
+  faPlayCircle,
+  faStopCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faChevronUp, faChevronDown, faArrowsAlt, faMicrochip);
-
+library.add(faChevronUp, faChevronDown, faArrowsAlt, faMicrochip, faPlayCircle, faStopCircle);
 
 ("use strict");
 
 /** @see https://github.com/TotallyInformation/node-red-contrib-uibuilder/wiki/Front-End-Library---available-properties-and-methods */
-Vue.component('font-awesome-icon', FontAwesomeIcon) 
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 // eslint-disable-next-line no-unused-vars
 new Vue({
   el: "#app",

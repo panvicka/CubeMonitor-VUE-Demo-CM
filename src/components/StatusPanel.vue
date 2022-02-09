@@ -1,23 +1,26 @@
 <template>
   <div class="top-panel">
-    <div class="info-toolbar info-logo">
-      <b-img src="./images/node-blue-192x192.png" rounded left alt="Blue Node-RED" class="mt-1 mr-2"></b-img>
+    <div class="status">
+      <div class="button-container">
+        <font-awesome-icon class="icon-button start" v-on:click="onMeasurementStart" icon="play-circle" />
+        <font-awesome-icon class="icon-button stop" v-on:click="onMeasurementEnd" icon="stop-circle" />
+      </div>
+      <div class="connection-status-container">
+        <span>
+          Socket.io Connection Status: <b>{{ connectionSocket }}</b></span
+        >
+        <span>
+          Heartbeat <b>{{ heatbeat }}</b></span
+        >
+      </div>
+    </div>
+
+    <div class="info-toolbar">
       <h1>{{ title }}</h1>
       <font-awesome-icon icon="microchip" class="chip-logo" />
 
-      <slot />
+      <!-- <slot /> -->
     </div>
-    <div class="flex-container-item-flex flex-container-column info-toolbar">
-      <b-button id="btn_start" variant="primary" v-on:click="onMeasurementStart">Measurement Start </b-button>
-      <b-button id="btn_stop" variant="primary" v-on:click="onMeasurementEnd">End Measurement</b-button>
-      <span>
-        Socket.io Connection Status: <b>{{ connectionSocket }}</b></span
-      >
-      <span>
-        Heartbeat <b>{{ heatbeat }}</b></span
-      >
-    </div>
-    <br />
   </div>
 </template>
 
@@ -43,11 +46,54 @@ export default {
 </script>
 
 <style scoped>
-img {
-  width: 60px;
+.top-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  border: 1px solid blue;
+}
+
+.info-toolbar {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  max-width: 400px;
+ }
+
+.status {
+  display: flex;
+  flex-direction: column;
 }
 
 .chip-logo {
   font-size: 3em;
+}
+
+ 
+
+.icon-button {
+  font-size: 3em;
+  cursor: pointer;
+}
+
+.start {
+  color: green;
+}
+
+.stop {
+  color: red;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.connection-status-container {
+  display: flex;
+  flex-direction: column;
 }
 </style>
