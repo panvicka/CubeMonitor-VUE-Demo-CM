@@ -40,10 +40,10 @@ import RangeSignalNameForcedValue from "./components/RangeSignalNameForcedValue.
 import ForcingCheckBox from "./components/ForcingCheckBox.vue";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronUp, faChevronDown, faArrowsAlt, faMicrochip } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faChevronUp, faChevronDown);
+library.add(faChevronUp, faChevronDown, faArrowsAlt, faMicrochip);
 
 
 ("use strict");
