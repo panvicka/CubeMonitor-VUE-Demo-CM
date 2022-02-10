@@ -156,3 +156,7 @@ body {
 .row {
   flex-direction: column;
 }
+
+.custom-control-label:hover {
+  cursor: pointer !important;
+}

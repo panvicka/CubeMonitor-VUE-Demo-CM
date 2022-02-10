@@ -9,16 +9,17 @@
     }}</span
     ><br />
 
-    <b-form-checkbox v-model="forced" @change="onChangeForced(id, forced)" switch>
-      {{ forced ? "forcing enabled" : "forcing disabled" }}
+    <b-form-checkbox id="enable-overwrite-toggle" v-model="forced" @change="onChangeForced(id, forced)" switch>
+      {{ forced ? "overwrite activated" : "overwrite deactivate" }}
     </b-form-checkbox>
+
     <b-form-checkbox
       :disabled="forced ? false : true"
       v-model="forcedValue"
-      @change="onChangeForcedValue(id, forcedValue)"  
-      switch    
+      @change="onChangeForcedValue(id, forcedValue)"
+      switch
     >
-      forced value
+      {{ forcedValue ? "forced ON" : "forced OFF" }}
     </b-form-checkbox>
     <slot />
   </div>
@@ -50,6 +51,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .state-on {
   color: green;
 }
