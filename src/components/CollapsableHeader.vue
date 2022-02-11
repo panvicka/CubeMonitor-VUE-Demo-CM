@@ -33,11 +33,6 @@ export default {
   border-radius: 10px 10px 0px 0px;
 }
 
-.collapse-header:hover {
-  background-color: rgba(142, 248, 252, 0.705);
-  border-radius: 10px;
-}
-
 a {
   display: flex;
   justify-content: space-between;
@@ -46,7 +41,8 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 1em;
-  color:black;
+  color: black;
+  margin-top: 1em;
 }
 
 a:hover {
@@ -56,7 +52,7 @@ a:hover {
 
 .move-icon {
   cursor: pointer;
-  margin-left: 0.5rem;
+  margin-left: 0.5em;
+  margin-top: 0.8em;
 }
-
 </style>

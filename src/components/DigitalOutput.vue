@@ -1,16 +1,14 @@
 <template>
   <div>
-    <span>
-      <b>{{ digitalOutput.name }}</b> 
-      <br> 
-      {{digitalOutput.description}}
-    </span>
-    <br />
-    <span
-      class="state"
-      :class="digitalOutput.value ? 'state-on' : 'state-off'"
-      >{{ digitalOutput.value ? "ON" : "OFF" }}</span
-    >
+    <div class="flex-row">
+      <span class="card-title">{{ digitalOutput.name }}</span>
+      <br />
+      {{ digitalOutput.description }}
+    </div>
+   
+    <span class="state" :class="digitalOutput.value ? 'state-on' : 'state-off'">{{
+      digitalOutput.value ? "ON" : "OFF"
+    }}</span>
   </div>
 </template>
 

@@ -1,9 +1,10 @@
 <template>
   <div>
-    <span>
-      <b>{{ digitalInput.name }}</b> {{ digitalInput.description }}
-    </span>
-    <br />
+    <div class="flex-row">
+      <span class="card-title">{{ digitalInput.name }}</span>
+      {{ digitalInput.description }}
+    </div>
+
     <span class="state" :class="digitalInput.value ? 'state-off' : 'state-on'">{{
       digitalInput.value ? "OFF" : "ON"
     }}</span
@@ -24,6 +25,7 @@
     <slot />
   </div>
 </template>
+
 <script lang="ts">
 export default {
   name: "DigitalInput",
@@ -51,8 +53,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .state-on {
   color: green;
 }

@@ -1,8 +1,11 @@
 <template>
   <div class="range-input-wrapper">
     <div class="inner-wrapper">
-      <div class="threshold-values">{{ input.min / input.scale }}{{ input.unit }}</div>
+      <div class="threshold-values" :class="!input.forced && 'hidden'">
+        {{ input.min / input.scale }}{{ input.unit }}
+      </div>
       <b-form-input
+        :disabled="input.forced == false"
         id="range-analog-inputs"
         v-model="inputValue"
         type="range"
@@ -11,14 +14,19 @@
         :step="input.step"
         @change="onChange(id, inputValue)"
       ></b-form-input>
-      <div class="threshold-values">{{ input.max / input.scale }}{{ input.unit }}</div>
+      <div class="threshold-values " :class="!input.forced && 'hidden'">
+        {{ input.max / input.scale }}{{ input.unit }}
+      </div>
     </div>
-    <span>{{ inputValue / input.scale }}{{ input.unit }}</span>
+    <!-- round to 2 decimal places -->
+    <span :class="!input.forced && 'hidden'"
+      >{{ Math.round((inputValue / input.scale) * 100) / 100 }}{{ input.unit }}</span
+    >
   </div>
 </template>
 <script lang="ts">
 export default {
-  name: 'RangeInput',
+  name: "RangeInput",
   data() {
     return {
       inputValue: 0,
@@ -31,7 +39,7 @@ export default {
   methods: {
     onChange(id, value) {
       console.log(`change on input with id ${id} to ${value}`);
-      this.$emit('input-change', id, value);
+      this.$emit("input-change", id, value);
     },
   },
 };
@@ -64,5 +72,9 @@ span {
   font-weight: bolder;
   margin: 0.5em;
   font-size: 1.1em;
+}
+
+.hidden {
+  color: rgb(58, 60, 61);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="graph-wrapper">
     <canvas :id="name" class="graph"></canvas>
     <button v-on:click="clean()">clean</button>
     <button v-on:click="stop()">stop</button>
@@ -27,8 +27,16 @@ function stop() {
 }
 
 export default {
-  name: "PlanetChart",
+  name: "ThreeValGraph",
   methods: {
+    adddataNew(data, time) {
+      data.forEach((element, index) => {
+        // console.log(element);
+        this.myChart.data.datasets[index].data.push(element);
+      });
+      this.myChart.data.labels.push(time);
+      this.myChart.update();
+    },
     adddata(data1, data2, data3, time) {
       this.myChart.data.datasets[0].data.push(data1);
       this.myChart.data.datasets[1].data.push(data2);
@@ -51,13 +59,8 @@ export default {
         let hours = date.getHours();
         let minutes = date.getMinutes();
         minutes = (minutes < 10 ? "0" : "") + minutes;
-        this.adddata(
-          this.data1,
-          this.data2,
-          this.data3,
-          `${hours}:${minutes}`
-        );
-      }, 1000);
+        this.adddataNew(this.data3, `${hours}:${minutes}`);
+      }, this.refresh);
     },
     createChart(chartId, chardData) {
       const ctx = document.getElementById(chartId);
@@ -69,32 +72,13 @@ export default {
       });
     },
   },
-  props: ["id", "name", "data2", "data1", "data3"],
+  props: ["id", "name", "data2", "data1", "data3", "colors", "labels", "refresh"],
   data() {
     const interval = null;
     const chartSetting = {
       type: "line",
       data: {
-        datasets: [
-          {
-            label: "data1",
-            data: [],
-            borderColor: "blue",
-            borderWidth: 3,
-          },
-          {
-            label: "data2",
-            data: [],
-            borderColor: "red",
-            borderWidth: 3,
-          },
-          {
-            label: "data3",
-            data: [],
-            borderColor: "black",
-            borderWidth: 3,
-          },
-        ],
+        datasets: [],
       },
       options: {
         resposive: true,
@@ -117,20 +101,30 @@ export default {
   },
   mounted() {
     this.createChart(this.name, this.chartSetting);
-    this.interval = setInterval(() => {
-      let date = new Date();
-      let hours = date.getHours();
-      let minutes = date.getMinutes();
-      minutes = (minutes < 10 ? "0" : "") + minutes;
-      this.adddata(
-        this.data1,
-        this.data2,
-        this.data3,
-        `${hours}:${minutes}`
-      );
-    }, 1000);
+    for (let i = 0; i < this.data3.length; i++) {
+      console.log(this.colors[i]);
+      this.myChart.data.datasets.push({
+        label: `${this.labels[i]}`,
+        data: [],
+        borderColor: `${this.colors[i]}`,
+        borderWidth: 3,
+      });
+    }
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.graph-wrapper {
+  min-height: 300px;
+}
+
+canvas {
+  height: 100% !important;
+}
+
+.graph {
+  height: 300px !important;
+  width: 600px !important;
+}
+</style>

@@ -64,7 +64,7 @@
           </collapsable>
 
           <collapsable id="analog-inputs" title-text="Analog Inputs">
-            <div class="flex-container">
+            <div class="collapsable-content">
               <div v-for="(item, index) in analogInputs" class="flex-container-item">
                 <range-signal-name-value :item="item"></range-signal-name-value>
                 <forcing-checkbox
@@ -76,13 +76,13 @@
                   @input-change="setForcedValueAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
                   :id="index"
                   :input="item"
-                ></range-input>
+                  ></range-input>
               </div>
             </div>
           </collapsable>
 
           <collapsable id="analog-outputs" title-text="Analog Outputs">
-            <div class="flex-container">
+            <div class="collapsable-content">
               <div v-for="(item, index) in analogOutputs" class="flex-container-item">
                 <range-signal-name-value :item="item"></range-signal-name-value>
               </div>
@@ -90,21 +90,25 @@
           </collapsable>
 
           <collapsable id="adc-dac-graph" title-text="ACD1/DAC1 Graph">
-            <div class="graph-container">
+            <!-- <div class="graph-container"> -->
               <chart-3-values
                 ref="childref"
                 id="1"
                 name="adc-dac-canvas"
                 v-bind:data1="analogInputs[0].value"
                 v-bind:data2="analogOutputs[0].value"
+                v-bind:data3="[1,2]"
+                :colors="['red', 'blue']"
+                :labels="['ADC', 'DAC']"
+                :refresh="1000"
               />
-            </div>
+            <!-- </div> -->
           </collapsable>
 
           <!-- Outputs -->
           <collapsable id="do-collapse" title-text="DO">
-            <div class="flex-container">
-              <div v-for="(item, index) in outputs" class="flex-container-item wider flex-container-item-flex">
+            <div class="collapsable-content">
+              <div v-for="(item, index) in outputs" class="flex-container-item">
                 <digital-output :digital-output="item"></digital-output>
               </div>
             </div>

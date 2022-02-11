@@ -1,18 +1,23 @@
 <template>
   <div>
-    <b>{{ item.name }}</b> {{ item.description }}
-    <br />
-    {{ item.value / item.scale }}{{ item.unit }}
+    <div clas="flex-row">
+      <span class="card-title">{{ item.name }}</span> {{ item.description }}
+    </div>
+    <span class="state">{{ item.value / item.scale }}{{ item.unit }} </span>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'RangeSignalNameValue',
+  name: "RangeSignalNameValue",
   props: {
     item: Object,
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.state {
+  color: blue;
+}
+</style>
