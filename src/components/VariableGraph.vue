@@ -13,7 +13,7 @@
 import Chart from "chart.js/auto";
 
 export default {
-  name: "ThreeValGraph",
+  name: "VariableGraph",
   methods: {
     adddataNew(data, time) {
       data.forEach((element, index) => {
@@ -59,7 +59,7 @@ export default {
   },
 
   data() {
-    const interval = null;
+ 
     const chartSetting = {
       type: "line",
       data: {

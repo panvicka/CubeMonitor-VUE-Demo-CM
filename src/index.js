@@ -25,17 +25,14 @@ import { back_door_def } from "./mcu_variable_definitions/back_door";
 import { programm_variables_def } from "./mcu_variable_definitions/programm_variables";
 
 
-import ChartThreeValues from "./components/ChartThreeValues.vue";
-
 import StatusPanel from "./pages/StatusPanel.vue";
 
+import VariableGraph from "./components/VariableGraph.vue";
 import TextOutput from "./components/TextOutput.vue";
 import RangeInputSlider from "./components/RangeInputSlider.vue";
 import Collapsable from "./components/Collapsable.vue";
 import ButtonGroup from "./components/ButtonGroup.vue";
-
 import DigitalInput from "./components/DigitalInput.vue";
-import Event from "./components/Event.vue";
 import DigitalOutput from "./components/DigitalOutput.vue";
 import NumberInput from "./components/NumberInput.vue";
 import RangeSignalNameValue from "./components/RangeSignalNameValue.vue";
@@ -60,12 +57,12 @@ library.add(faChevronUp, faChevronDown, faArrowsAlt, faMicrochip, faPlayCircle, 
 
 /** @see https://github.com/TotallyInformation/node-red-contrib-uibuilder/wiki/Front-End-Library---available-properties-and-methods */
 Vue.component("font-awesome-icon", FontAwesomeIcon);
-// eslint-disable-next-line no-unused-vars
+
 new Vue({
   el: "#app",
   components: {
     "button-group": ButtonGroup,
-    "chart-3-values": ChartThreeValues,
+    "variable-graph": VariableGraph,
     "text-output": TextOutput,
     collapsable: Collapsable,
     "status-panel": StatusPanel,
@@ -76,10 +73,8 @@ new Vue({
     "range-signal-name-forced-value": RangeSignalNameForcedValue,
     "forcing-checkbox": ForcingCheckBox,
     "range-input-slider": RangeInputSlider,
-    event: Event,
   },
   data: {
-    startMsg: "Vue has started, waiting for messages",
     feVersion: "",
     inputs: [...inputs_def],
     analogInputs: [...analog_inputs_def],
@@ -95,46 +90,9 @@ new Vue({
     socketConnectedState: false,
 
     serverTimeOffset: "[unknown]",
-    imgProps: { width: 75, height: 75 },
 
-    msgRecvd: "[Nothing]",
-    msgsReceived: 0,
-    msgCtrl: "[Nothing]",
-    msgsControl: 0,
-
-    msgSent: "[Nothing]",
-    msgsSent: 0,
-    msgCtrlSent: "[Nothing]",
-    msgsCtrlSent: 0,
-
-    isLoggedOn: false,
-    userId: null,
-    userPw: null,
     inputId: "",
   }, // --- End of data --- //
-  computed: {
-    hLastRcvd: function() {
-      var msgRecvd = this.msgRecvd;
-      if (typeof msgRecvd === "string") return "Last Message Received = " + msgRecvd;
-      else return "Last Message Received = " + this.syntaxHighlight(msgRecvd);
-    },
-    hLastSent: function() {
-      var msgSent = this.msgSent;
-      if (typeof msgSent === "string") return "Last Message Sent = " + msgSent;
-      else return "Last Message Sent = " + this.syntaxHighlight(msgSent);
-    },
-    hLastCtrlRcvd: function() {
-      var msgCtrl = this.msgCtrl;
-      if (typeof msgCtrl === "string") return "Last Control Message Received = " + msgCtrl;
-      else return "Last Control Message Received = " + this.syntaxHighlight(msgCtrl);
-    },
-    hLastCtrlSent: function() {
-      var msgCtrlSent = this.msgCtrlSent;
-      if (typeof msgCtrlSent === "string") return "Last Control Message Sent = " + msgCtrlSent;
-      //else return 'Last Message Sent = ' + this.callMethod('syntaxHighlight', [msgCtrlSent])
-      else return "Last Control Message Sent = " + this.syntaxHighlight(msgCtrlSent);
-    },
-  }, // --- End of computed --- //
   methods: {
     analogInputsReact,
     inputReact,
@@ -175,53 +133,12 @@ new Vue({
         payload,
       });
     },
-
-    doLogon: function() {
-      uibuilder.logon({
-        id: this.inputId,
-      });
-    }, // --- End of doLogon --- //
-
-    doLogoff: function() {
-      uibuilder.logoff();
-    }, // --- End of doLogon --- //
-
-    // return formatted HTML version of JSON object
-    syntaxHighlight: function(json) {
-      json = JSON.stringify(json, undefined, 4);
-      json = json
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-      json = json.replace(
-        /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-        function(match) {
-          var cls = "number";
-          if (/^"/.test(match)) {
-            if (/:$/.test(match)) {
-              cls = "key";
-            } else {
-              cls = "string";
-            }
-          } else if (/true|false/.test(match)) {
-            cls = "boolean";
-          } else if (/null/.test(match)) {
-            cls = "null";
-          }
-          return '<span class="' + cls + '">' + match + "</span>";
-        }
-      );
-      return json;
-    }, // --- End of syntaxHighlight --- //
   }, // --- End of methods --- //
 
   // Available hooks: beforeCreate,created,beforeMount,mounted,beforeUpdate,updated,beforeDestroy,destroyed, activated,deactivated, errorCaptured
 
   /** Called after the Vue app has been created. A good place to put startup code */
   created: function() {
-    // Example of retrieving data from uibuilder
-    this.feVersion = uibuilder.get("version");
-
     /** **REQUIRED** Start uibuilder comms with Node-RED @since v2.0.0-dev3
      * Pass the namespace and ioPath variables if hosting page is not in the instance root folder
      * e.g. If you get continual `uibuilderfe:ioSetup: SOCKET CONNECT ERROR` error messages.
@@ -255,7 +172,6 @@ new Vue({
     // If msg changes - msg is updated when a standard msg is received from Node-RED over Socket.IO
     // newVal relates to the attribute being listened to.
     uibuilder.onChange("msg", function(msg) {
-      //console.info('[indexjs:uibuilder.onChange] msg received from Node-RED server:', msg)
       app.msgRecvd = msg;
       app.msgsReceived = uibuilder.get("msgsReceived");
       app.payload = msg.payload;
@@ -283,56 +199,10 @@ new Vue({
       }
     });
 
-    //#region ---- Debug info, can be removed for live use ---- //
-
-    /** You can use the following to help trace how messages flow back and forth.
-     * You can then amend this processing to suite your requirements.
-     */
-
-    // If we receive a control message from Node-RED, we can get the new data here - we pass it to a Vue variable
-    uibuilder.onChange("ctrlMsg", function(msg) {
-      //console.info('[indexjs:uibuilder.onChange:ctrlMsg] CONTROL msg received from Node-RED server:', msg)
-      app.msgCtrl = msg;
-      app.msgsControl = uibuilder.get("msgsCtrl");
-    });
-
-    /** You probably only need these to help you understand the order of processing
-     * If a message is sent back to Node-RED, we can grab a copy here if we want to
-     */
-    uibuilder.onChange("sentMsg", function(msg) {
-      //console.info('[indexjs:uibuilder.onChange:sentMsg] msg sent to Node-RED server:', msg)
-      app.msgSent = msg;
-      app.msgsSent = uibuilder.get("msgsSent");
-    });
-
-    /** If we send a control message to Node-RED, we can get a copy of it here */
-    uibuilder.onChange("sentCtrlMsg", function(msg) {
-      //console.info('[indexjs:uibuilder.onChange:sentCtrlMsg] Control message sent to Node-RED server:', msg)
-      app.msgCtrlSent = msg;
-      app.msgsCtrlSent = uibuilder.get("msgsSentCtrl");
-    });
-
     /** If Socket.IO connects/disconnects, we get true/false here */
     uibuilder.onChange("ioConnected", function(connected) {
       //console.info('[indexjs:uibuilder.onChange:ioConnected] Socket.IO Connection Status Changed to:', connected)
       app.socketConnectedState = connected;
     });
-    /** If Server Time Offset changes */
-    uibuilder.onChange("serverTimeOffset", function(serverTimeOffset) {
-      //console.info('[indexjs:uibuilder.onChange:serverTimeOffset] Offset of time between the browser and the server has changed to:', serverTimeOffset)
-      app.serverTimeOffset = serverTimeOffset;
-    });
-
-    /** If user is logged on/off */
-    uibuilder.onChange("isAuthorised", function(isAuthorised) {
-      //console.info('[indexjs:uibuilder.onChange:isAuthorised] isAuthorised changed. User logged on?:', isAuthorised)
-      //console.log('authData: ', uibuilder.get('authData'))
-      //console.log('authTokenExpiry: ', uibuilder.get('authTokenExpiry'))
-      app.isLoggedOn = isAuthorised;
-    });
-
-    //#endregion ---- Debug info, can be removed for live use ---- //
-  }, // --- End of mounted hook --- //
-}); // --- End of app1 --- //
-
-// EOF
+  },
+});
