@@ -43,6 +43,8 @@ body {
   justify-content: center;
   align-items: center;
   font-family: "Roboto", sans-serif;
+  /* preventing scroll down from moving content to the left */
+  width: calc(100vw - 34px);
 }
 
 .collapsable-content {
@@ -56,9 +58,9 @@ body {
 
 .wrapper {
   width: 1000px;
-
-  margin: 2em;
-  padding: 2em;
+  border-radius: 1rem;
+  margin: 2rem;
+  padding: 2rem;
 }
 
 .flex-container {
@@ -177,4 +179,9 @@ body {
 .flex-col {
   display: flex;
   flex-direction: column;
+}
+
+.center-flex-content {
+  justify-content: center;
+  align-items: center;
 }

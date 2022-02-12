@@ -1,56 +1,38 @@
 <template>
   <div class="graph-wrapper">
     <canvas :id="name" class="graph"></canvas>
-    <button v-on:click="clean()">clean</button>
-    <button v-on:click="stop()">stop</button>
-    <button v-on:click="start()">start</button>
+    <div class="graph-buttons-wrapper">
+      <font-awesome-icon class="start graph-button" v-on:click="start()" icon="play-circle" />
+      <font-awesome-icon class="stop graph-button" v-on:click="stop()" icon="stop-circle" />
+      <font-awesome-icon class="trash graph-button" v-on:click="clean()" icon="trash" />
+
+      <!-- <button v-on:click="clean()">clean</button> -->
+      <!-- <button v-on:click="stop()">stop</button>
+      <button v-on:click="start()">start</button> -->
+    </div>
   </div>
 </template>
 
 <script>
 import Chart from "chart.js/auto";
 
-let numberOfData = 0;
-let chart;
-
-let interval;
-
-function clean() {
-  this.myChart.data.datasets[0].data = [];
-  this.myChart.data.datasets[1].data = [];
-  this.myChart.data.datasets[2].data = [];
-}
-
-function stop() {
-  console.log("stopping interval");
-  window.clearInterval(interval);
-}
-
 export default {
   name: "ThreeValGraph",
   methods: {
     adddataNew(data, time) {
       data.forEach((element, index) => {
-        // console.log(element);
         this.myChart.data.datasets[index].data.push(element);
       });
       this.myChart.data.labels.push(time);
       this.myChart.update();
     },
-    adddata(data1, data2, data3, time) {
-      this.myChart.data.datasets[0].data.push(data1);
-      this.myChart.data.datasets[1].data.push(data2);
-      this.myChart.data.datasets[2].data.push(data3);
-      this.myChart.data.labels.push(time);
+    clean() {
+      for (let i = 0; i < this.data3.length; i++) {
+        this.myChart.data.datasets[i].data = [];
+      }
       this.myChart.update();
     },
-    clean() {
-      this.myChart.data.datasets[0].data = [];
-      this.myChart.data.datasets[1].data = [];
-      this.myChart.data.datasets[2].data = [];
-    },
     stop() {
-      console.log("stopping interval");
       window.clearInterval(this.interval);
     },
     start() {
@@ -64,7 +46,6 @@ export default {
     },
     createChart(chartId, chardData) {
       const ctx = document.getElementById(chartId);
-      // Save reference
       this.myChart = new Chart(ctx, {
         type: chardData.type,
         data: chardData.data,
@@ -72,7 +53,16 @@ export default {
       });
     },
   },
-  props: ["id", "name", "data2", "data1", "data3", "colors", "labels", "refresh"],
+  // props: ["id", "name", "data3", "colors", "labels", "refresh"],
+  props: {
+    id: String,
+    name: String,
+    data3: Array,
+    colors: Array,
+    labels: Array,
+    refresh: Number,
+  },
+
   data() {
     const interval = null;
     const chartSetting = {
@@ -126,5 +116,27 @@ canvas {
 .graph {
   height: 300px !important;
   width: 600px !important;
+}
+
+.graph-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.graph-buttons-wrapper {
+  display: flex;
+  align-items: center;
+  padding-left: 0.9rem;
+}
+
+.graph-button {
+  font-size: 2em;
+  margin: 0.7rem;
+  cursor: pointer;
+  transition: color linear 0.2s;
+}
+
+.graph-button:hover {
+  color: rgba(0, 0, 0, 0.5);
 }
 </style>

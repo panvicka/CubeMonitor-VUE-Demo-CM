@@ -47,10 +47,11 @@ import {
   faMicrochip,
   faPlayCircle,
   faStopCircle,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faChevronUp, faChevronDown, faArrowsAlt, faMicrochip, faPlayCircle, faStopCircle);
+library.add(faChevronUp, faChevronDown, faArrowsAlt, faMicrochip, faPlayCircle, faStopCircle, faTrash);
 
 ("use strict");
 
@@ -60,7 +61,6 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 new Vue({
   el: "#app",
   components: {
-    // "font-awesome-icon": FontAwesomeIcon,
     "button-group": ButtonGroup,
     "chart-3-values": ChartThreeValues,
     "text-output": TextOutput,
@@ -83,11 +83,13 @@ new Vue({
     analogOutputs: [...analog_outputs_def],
     outputs: [...outputs_def],
     backdoorActions: [...back_door_def],
-
-    heartBeat: 0,
     counter: 0,
 
+    liveCounterVal: 0,
+    lastLiveCounterVal: 0,
+    connectionOK: true,
     socketConnectedState: false,
+
     serverTimeOffset: "[unknown]",
     imgProps: { width: 75, height: 75 },
 
@@ -225,8 +227,15 @@ new Vue({
      * @param {Object=} vueApp Optional. Reference to the VueJS instance. Used for Vue extensions.
      */
     uibuilder.start(this); // Single param passing vue app to allow Vue extensions to be used.
-
-    //console.log(this)
+    this.interval = setInterval(() => {
+      if (this.heartBeat != this.lastLiveBitVal && this.socketConnectedState == true) {
+        this.connectionOK = true;
+        console.log("connection ok");
+      } else {
+        this.connectionOK = false;
+        console.log("connection failed");
+      }
+    }, 2000);
   },
 
   /** Called once all Vue component instances have been loaded and the virtual DOM built */

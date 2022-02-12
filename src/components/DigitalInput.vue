@@ -7,22 +7,22 @@
 
     <span class="state" :class="digitalInput.value ? 'state-off' : 'state-on'">{{
       digitalInput.value ? "OFF" : "ON"
-    }}</span
-    ><br />
+    }}</span>
 
-    <b-form-checkbox id="enable-overwrite-toggle" v-model="forced" @change="onChangeForced(id, forced)" switch>
-      {{ forced ? "overwrite activated" : "overwrite deactivate" }}
-    </b-form-checkbox>
+    <div class="controls">
+      <b-form-checkbox v-model="forced" @change="onChangeForced(id, forced)" switch>
+        {{ forced ? "overwrite activated" : "overwrite deactivate" }}
+      </b-form-checkbox>
 
-    <b-form-checkbox
-      :disabled="forced ? false : true"
-      v-model="forcedValue"
-      @change="onChangeForcedValue(id, forcedValue)"
-      switch
-    >
-      {{ forcedValue ? "forced ON" : "forced OFF" }}
-    </b-form-checkbox>
-    <slot />
+      <b-form-checkbox
+        :disabled="forced ? false : true"
+        v-model="forcedValue"
+        @change="onChangeForcedValue(id, forcedValue)"
+        switch
+      >
+        {{ forcedValue ? "forced ON" : "forced OFF" }}
+      </b-form-checkbox>
+    </div>
   </div>
 </template>
 

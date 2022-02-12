@@ -56,6 +56,7 @@ span {
 .range-input-wrapper {
   display: flex;
   flex-direction: column;
+  width: 200px;
 }
 .inner-wrapper {
   display: flex;
@@ -63,7 +64,7 @@ span {
   align-items: center;
 }
 .custom-range {
-  width: 80%;
+  width: 60%;
   margin-bottom: 0px;
 }
 

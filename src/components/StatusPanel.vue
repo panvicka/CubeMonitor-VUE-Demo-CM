@@ -16,7 +16,7 @@
           socket <b>{{ connectionSocket ? "OK" : "ERR" }}</b></span
         >
         <span>
-          livebit <b>{{ heatbeat }}</b></span
+          live counter <b>{{ heatbeat }}</b></span
         >
       </div>
     </div>
