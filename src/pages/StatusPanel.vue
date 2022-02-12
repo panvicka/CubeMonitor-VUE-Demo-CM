@@ -1,9 +1,28 @@
 <template>
   <div class="top-panel">
     <div class="info-toolbar">
-      <h1>{{ title }}</h1>
+      <h1>Cube Monitor + Vue DEMO</h1>
+      <div class="info-text">
+        This VUE app uses <a href="https://flows.nodered.org/node/node-red-contrib-uibuilder">ui-builder</a> +
+        <a href="https://www.st.com/en/development-tools/stm32cubemonitor.html">STM32CubeMonitor</a>. You can display
+        and directly manipulate variables without fiddling with the nodeRED function diagramm. Use cases:
 
-      <!-- <slot /> -->
+        <ul>
+          <li>
+            you do not have the HW yet, but you have to start with integration tests
+          </li>
+          <li>
+            there is a part of a system (like sensor or switch) missing (broken, not delivered on time)
+          </li>
+          <li>
+            the sensor/switch is in unreachable position or it is not possible/save to simulate the conditions
+            (pressure/oxygen sensors)
+          </li>
+          <li>
+            you need to simulate situations that should never occur in real-life to test edge cases
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="status">
@@ -16,7 +35,7 @@
           socket <b>{{ connectionSocket ? "OK" : "ERR" }}</b></span
         >
         <span>
-          live counter <b>{{ heatbeat }}</b></span
+          MCU <b>{{ connectionMcu ? "OK" : "ERR" }}</b></span
         >
       </div>
     </div>
@@ -27,9 +46,8 @@
 export default {
   name: "StatusPanel",
   props: {
-    heatbeat: Number,
     connectionSocket: Boolean,
-    title: String,
+    connectionMcu: Boolean,
   },
   methods: {
     onMeasurementStart() {
@@ -45,24 +63,28 @@ export default {
 </script>
 
 <style scoped>
+ul {
+  margin-left: 2em;
+}
+
 .top-panel {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
- 
+
   margin-bottom: 1rem;
 }
 
 .info-toolbar {
- 
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  max-width: 600px;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 800px;
   font-weight: bolder;
   font-size: 2em;
+  margin-left: -0.8rem;
 }
 
 .status {
@@ -77,14 +99,22 @@ export default {
 .icon-button {
   font-size: 3em;
   cursor: pointer;
+  transition: color linear 0.2s;
 }
 
 .start {
   color: green;
 }
+.start:hover {
+  color: rgba(0, 128, 0, 0.5);
+}
 
 .stop {
   color: red;
+}
+
+.stop:hover {
+  color: rgba(255, 0, 0, 0.5);
 }
 
 .button-container {
@@ -95,5 +125,16 @@ export default {
 .connection-status-container {
   display: flex;
   flex-direction: column;
+}
+
+h1 {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.info-text {
+  font-size: 0.5em;
+  font-weight: normal;
+  line-height: 1.3em;
 }
 </style>

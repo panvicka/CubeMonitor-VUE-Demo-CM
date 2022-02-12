@@ -29,11 +29,9 @@ export default {
   methods: {
     setHidden() {
       this.hidden = true;
-      console.log(this.hidden);
     },
     setShown() {
       this.hidden = false;
-      console.log(this.hidden);
     },
   },
 };

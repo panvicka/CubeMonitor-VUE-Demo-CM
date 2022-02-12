@@ -1,33 +1,32 @@
 export var inputs_def = [
   {
-    name: "Input 1",
+    name: "Button",
     value: 0,
-    description: "Input 1",
+    description: "Blue user button",
     forced: false,
     forcedValue: false,
     variableWithForcedValue: "inputs[0].mx_value_adr",
     variableWithForcedEnable: "inputs[0].mx_rewrites_adr",
   },
   {
-    name: "Input 2",
+    name: "DI1 (PE7)",
     value: 0,
-    description: "Input 2",
+    description: "Input 1",
     forced: false,
     forcedValue: false,
     variableWithForcedValue: "inputs[1].mx_value_adr",
     variableWithForcedEnable: "inputs[1].mx_rewrites_adr",
-  }, 
+  },
   {
-    name: "Input 3",
+    name: "DI2 (PE8)",
     value: 0,
-    description: "Input 3",
+    description: "Input 2",
     forced: false,
     forcedValue: false,
     variableWithForcedValue: "inputs[2].mx_value_adr",
     variableWithForcedEnable: "inputs[2].mx_rewrites_adr",
-  }, 
+  },
 ];
-
 
 function inputReact(inputArray) {
   var payload = [];
@@ -43,10 +42,10 @@ function inputReact(inputArray) {
   }
 
   uibuilder.send({
-    topic: 'input change',
+    topic: "input change",
     payload,
   });
-  console.log('sending input change request');
+  console.log("sending input change request");
 }
 
 export { inputReact };

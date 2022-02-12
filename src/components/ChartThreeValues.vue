@@ -5,10 +5,6 @@
       <font-awesome-icon class="start graph-button" v-on:click="start()" icon="play-circle" />
       <font-awesome-icon class="stop graph-button" v-on:click="stop()" icon="stop-circle" />
       <font-awesome-icon class="trash graph-button" v-on:click="clean()" icon="trash" />
-
-      <!-- <button v-on:click="clean()">clean</button> -->
-      <!-- <button v-on:click="stop()">stop</button>
-      <button v-on:click="start()">start</button> -->
     </div>
   </div>
 </template>
@@ -53,7 +49,6 @@ export default {
       });
     },
   },
-  // props: ["id", "name", "data3", "colors", "labels", "refresh"],
   props: {
     id: String,
     name: String,
@@ -92,7 +87,6 @@ export default {
   mounted() {
     this.createChart(this.name, this.chartSetting);
     for (let i = 0; i < this.data3.length; i++) {
-      console.log(this.colors[i]);
       this.myChart.data.datasets.push({
         label: `${this.labels[i]}`,
         data: [],

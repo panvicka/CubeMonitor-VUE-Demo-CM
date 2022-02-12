@@ -22,15 +22,18 @@ import { analog_outputs_def } from "./mcu_variable_definitions/analog_outputs";
 import { inputReact, inputs_def } from "./mcu_variable_definitions/inputs_vars";
 import { outputs_def } from "./mcu_variable_definitions/outputs_vars";
 import { back_door_def } from "./mcu_variable_definitions/back_door";
+import { programm_variables_def } from "./mcu_variable_definitions/programm_variables";
 
-import ControlValueChart from "./components/ControlValueChart.vue";
+
 import ChartThreeValues from "./components/ChartThreeValues.vue";
+
+import StatusPanel from "./pages/StatusPanel.vue";
 
 import TextOutput from "./components/TextOutput.vue";
 import RangeInputSlider from "./components/RangeInputSlider.vue";
 import Collapsable from "./components/Collapsable.vue";
 import ButtonGroup from "./components/ButtonGroup.vue";
-import StatusPanel from "./components/StatusPanel.vue";
+
 import DigitalInput from "./components/DigitalInput.vue";
 import Event from "./components/Event.vue";
 import DigitalOutput from "./components/DigitalOutput.vue";
@@ -83,10 +86,11 @@ new Vue({
     analogOutputs: [...analog_outputs_def],
     outputs: [...outputs_def],
     backdoorActions: [...back_door_def],
-    counter: 0,
+    programmVariables: [...programm_variables_def],
 
     liveCounterVal: 0,
     lastLiveCounterVal: 0,
+    connectionMcu: false,
     connectionOK: true,
     socketConnectedState: false,
 
@@ -163,7 +167,7 @@ new Vue({
       console.log("backdoor value " + valueToSet);
       var payload = [];
       payload.push({
-        variable: "back_door_mx_adr",
+        variable: "mx_back_door_adr",
         valueToset: valueToSet,
       });
       uibuilder.send({
@@ -228,14 +232,18 @@ new Vue({
      */
     uibuilder.start(this); // Single param passing vue app to allow Vue extensions to be used.
     this.interval = setInterval(() => {
-      if (this.heartBeat != this.lastLiveBitVal && this.socketConnectedState == true) {
+      if (this.liveCounterVal != this.lastLiveCounterVal) {
+        this.connectionMcu = true;
+      } else {
+        this.connectionMcu = false;
+      }
+      this.lastLiveCounterVal = this.liveCounterVal;
+      if (this.connectionMcu == true && this.socketConnectedState == true) {
         this.connectionOK = true;
-        console.log("connection ok");
       } else {
         this.connectionOK = false;
-        console.log("connection failed");
       }
-    }, 2000);
+    }, 3000);
   },
 
   /** Called once all Vue component instances have been loaded and the virtual DOM built */
@@ -268,10 +276,10 @@ new Vue({
         for (var i = 0; i < msg.payload.length; i++) {
           app.analogOutputs[i].value = msg.payload[i].value;
         }
-      } else if (msg.topic == "heartbeat") {
-        app.heartBeat = msg.payload[0].value;
+      } else if (msg.topic == "live_counter") {
+        app.liveCounterVal = msg.payload[0].value;
       } else if (msg.topic == "counter") {
-        app.counter = msg.payload[0].value;
+        app.programmVariables[0].value = msg.payload[0].value;
       }
     });
 

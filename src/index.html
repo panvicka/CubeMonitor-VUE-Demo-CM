@@ -32,12 +32,12 @@
     </template>
 
     <div id="app" v-cloak >
-      <div id="app_container" class="wrapper" :style="{'background-color': connectionOK ? 'none': '#CCC'}">
+      <div id="app_container" class="wrapper" :style="{'background-color': connectionOK ? '#FFF': '#CCC'}">
         <!-- Control panel -->
-        <status-panel
-          :heatbeat="liveCounterVal"
+        <status-panel          
           :connection-socket="socketConnectedState"
-          title="Cube Monitor + Vue DEMO"
+          :connection-mcu="connectionMcu"
+         
           @measurement-start="measurementStart"
           @measurement-stop="measurementStop"
         >
@@ -59,6 +59,29 @@
                   @input-forced-change="setForcingEnabledAndSendRequest(inputReact, inputs, ...arguments)"
                   @input-forced-value-change="setForcedValueAndSendRequest(inputReact, inputs, ...arguments)"
                 />
+              </div>
+            </div>
+          </collapsable>
+
+          <!-- number-input -->
+            <collapsable id="programm-variables" title-text="Programm variables">
+            <div class="collapsable-content">
+              <div v-for="(item, index) in programmVariables" class="flex-container-item">
+                <range-signal-name-value :item="item"></range-signal-name-value>
+                <div style="display: flex"> 
+                <forcing-checkbox
+                  :id="index"
+                  @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, programmVariables, ...arguments)"
+                  style="margin-top: 0.3rem"
+                  el-size="lg"
+                >
+                </forcing-checkbox>
+                <number-input
+                  @input-change="setForcedValueAndSendRequest(analogInputsReact, programmVariables, ...arguments)"
+                  :id="index"
+                  :input="item"
+                  ></number-input>
+                </div>
               </div>
             </div>
           </collapsable>

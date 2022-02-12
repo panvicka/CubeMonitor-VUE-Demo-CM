@@ -5,8 +5,8 @@
       {{ digitalInput.description }}
     </div>
 
-    <span class="state" :class="digitalInput.value ? 'state-off' : 'state-on'">{{
-      digitalInput.value ? "OFF" : "ON"
+    <span class="state" :class="digitalInput.value ? 'state-on' : 'state-off'">{{
+      digitalInput.value ? "ON" : "OFF"
     }}</span>
 
     <div class="controls">
@@ -60,4 +60,6 @@ export default {
 .state-off {
   color: rgb(196, 4, 4);
 }
+
+
 </style>

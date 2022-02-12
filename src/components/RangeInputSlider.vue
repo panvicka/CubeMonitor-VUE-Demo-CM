@@ -12,7 +12,7 @@
         :min="input.min"
         :max="input.max"
         :step="input.step"
-        @change="onChange(id, inputValue)"
+        @input="onChange(id, inputValue)"
       ></b-form-input>
       <div class="threshold-values " :class="!input.forced && 'hidden'">
         {{ input.max / input.scale }}{{ input.unit }}
@@ -29,18 +29,37 @@ export default {
   name: "RangeInput",
   data() {
     return {
-      inputValue: 0,
+      inputValue: null,
+      lastInputState: false,
     };
   },
   props: {
     id: Number,
     input: Object,
   },
+  watch: {
+    $props: {
+      handler: function() {
+        if (this.input.forced == true && this.lastInputState == false) {
+          this.$emit("input-change", this.id, this.inputValue);
+        }
+        if (this.input.forced == false) {
+          this.inputValue = this.input.value;
+        }
+        this.lastInputState = this.input.forced;
+      },
+      deep: true,
+    },
+  },
   methods: {
     onChange(id, value) {
-      console.log(`change on input with id ${id} to ${value}`);
       this.$emit("input-change", id, value);
     },
+  },
+  created: function() {
+    setTimeout(() => {
+      this.inputValue = this.input.value;
+    }, 1000);
   },
 };
 </script>
