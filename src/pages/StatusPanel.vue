@@ -1,7 +1,7 @@
 <template>
   <div class="top-panel">
     <div class="info-toolbar">
-      <h1>Cube Monitor + Vue DEMO</h1>
+      <h1 class="font-weight-bold text-uppercase">Cube Monitor + Vue DEMO</h1>
       <div class="info-text">
         This VUE app uses <a href="https://flows.nodered.org/node/node-red-contrib-uibuilder">ui-builder</a> +
         <a href="https://www.st.com/en/development-tools/stm32cubemonitor.html">STM32CubeMonitor</a>. You can display
@@ -128,7 +128,6 @@ ul {
 }
 
 h1 {
-  text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 

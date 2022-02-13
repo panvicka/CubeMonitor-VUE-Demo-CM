@@ -13,8 +13,6 @@
     <title>DEMO-MX-Cube-Vue</title>
     <meta name="description" content="Node-RED UI Builder - VueJS + bootstrap-vue default template" />
     <link rel="icon" href="./images/node-blue.ico" />
-    <link href="https://unpkg.com/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <link type="text/css" rel="stylesheet" href="./index.css" media="all" />
@@ -149,13 +147,7 @@
     <!-- These MUST be in the right order. Note no leading / -->
     <!-- REQUIRED: Socket.IO is loaded only once for all instances. Without this, you don't get a websocket connection -->
     <script src="../uibuilder/vendor/socket.io/socket.io.js"></script>
-    <!-- --- Vendor Libraries - Load in the right order --- -->
-    <script src="../uibuilder/vendor/vue/dist/vue.js"></script>
-    <!-- dev version with component compiler -->
-    <!-- <script src="../uibuilder/vendor/vue/dist/vue.min.js"></script>   prod version with component compiler -->
-    <!-- <script src="../uibuilder/vendor/vue/dist/vue.runtime.min.js"></script>   prod version without component compiler -->
-    <script src="../uibuilder/vendor/bootstrap-vue/dist/bootstrap-vue.js"></script>
-    <!-- REQUIRED: Sets up Socket listeners and the msg object -->
+     <!-- REQUIRED: Sets up Socket listeners and the msg object -->
     <script src="./uibuilderfe.js"></script>
     <!-- dev version -->
     <!-- <script src="./uibuilderfe.min.js"></script>     //prod version -->
@@ -168,13 +160,7 @@
         $("#sortable").disableSelection();
       });
 
-      document.onkeypress = function (e) {
-        e = e || window.event;
-        if (e.keyCode ==13) {
-          document.documentElement.classList.toggle('dark-mode');
-        }
-      }
-
+ 
 
     </script>
   </body>
