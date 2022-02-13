@@ -8,26 +8,17 @@
   display: none;
 }
 
-/*  Colours for Syntax Highlighted pre's */
-.syntax-highlight {
-  color: white;
-  background-color: black;
-  padding: 5px 10px;
-}
-.syntax-highlight > .key {
-  color: #ffbf35;
-}
-.syntax-highlight > .string {
-  color: #5dff39;
-}
-.syntax-highlight > .number {
-  color: #70aeff;
-}
-.syntax-highlight > .boolean {
-  color: #b993ff;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
+
+:root {
+  --light-gray: rgba(236, 236, 236, 0.705);
+  --black: rgb(17, 17, 17);
+  
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
+.dark-mode {
+  filter: invert(1) hue-rotate(180deg)
+}
 
 *,
 *::before,
@@ -40,9 +31,17 @@
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   font-family: "Roboto", sans-serif;
+  /* preventing scroll down from moving content to the left */
+  width: calc(100vw - 34px);
+  background-color: white;
+  width: 100%;
+  height: 100vh;
+}
+
+body .dark-mode {
+ background-color: rgb(68, 68, 68);
 }
 
 .collapsable-content {
@@ -56,9 +55,9 @@ body {
 
 .wrapper {
   width: 1000px;
-
-  margin: 2em;
-  padding: 2em;
+  border-radius: 1rem;
+  margin: 2rem;
+  padding: 2rem;
 }
 
 .flex-container {
@@ -178,3 +177,10 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.center-flex-content {
+  justify-content: center;
+  align-items: center;
+}
+
+ 

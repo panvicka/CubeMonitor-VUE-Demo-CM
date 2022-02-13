@@ -59,7 +59,6 @@ export default {
   },
 
   data() {
- 
     const chartSetting = {
       type: "line",
       data: {
@@ -103,10 +102,6 @@ export default {
   min-height: 300px;
 }
 
-canvas {
-  height: 100% !important;
-}
-
 .graph {
   height: 300px !important;
   width: 600px !important;
@@ -127,10 +122,11 @@ canvas {
   font-size: 2em;
   margin: 0.7rem;
   cursor: pointer;
-  transition: color linear 0.2s;
+  transition: opacity linear 0.2s;
+  color: var(--grey);
 }
 
 .graph-button:hover {
-  color: rgba(0, 0, 0, 0.5);
+  opacity: 0.8;
 }
 </style>

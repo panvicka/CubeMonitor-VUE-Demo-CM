@@ -79,7 +79,7 @@ export default {
 .threshold-values span {
   margin: 0;
   padding: 0;
-  color: rgb(131, 131, 131);
+  color: var(--grey);
   font-size: 0.8em;
   line-height: 0.8em;
 }

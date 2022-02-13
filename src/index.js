@@ -36,7 +36,6 @@ import DigitalInput from "./components/DigitalInput.vue";
 import DigitalOutput from "./components/DigitalOutput.vue";
 import NumberInput from "./components/NumberInput.vue";
 import RangeSignalNameValue from "./components/RangeSignalNameValue.vue";
-import RangeSignalNameForcedValue from "./components/RangeSignalNameForcedValue.vue";
 import ForcingCheckBox from "./components/ForcingCheckBox.vue";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -70,7 +69,6 @@ new Vue({
     "digital-input": DigitalInput,
     "number-input": NumberInput,
     "range-signal-name-value": RangeSignalNameValue,
-    "range-signal-name-forced-value": RangeSignalNameForcedValue,
     "forcing-checkbox": ForcingCheckBox,
     "range-input-slider": RangeInputSlider,
   },

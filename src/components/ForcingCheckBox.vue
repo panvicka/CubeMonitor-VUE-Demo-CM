@@ -16,7 +16,6 @@ export default {
   },
   methods: {
     onChange(id, value) {
-      console.log(`change on checkbox with id ${id} to ${value}`);
       this.$emit("checkbox-change", id, value);
     },
   },

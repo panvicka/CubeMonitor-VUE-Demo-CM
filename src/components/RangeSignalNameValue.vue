@@ -3,7 +3,7 @@
     <div clas="flex-row">
       <span class="card-title">{{ item.name }}</span> {{ item.description }}
     </div>
-    <span class="state">{{ item.value / item.scale }}{{ item.unit }} </span>
+    <span class="text-info font-weight-bold">{{ item.value / item.scale }}{{ item.unit }} </span>
   </div>
 </template>
 
@@ -16,8 +16,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.state {
-  color: blue;
-}
-</style>
+ 

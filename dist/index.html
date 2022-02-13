@@ -19,7 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <link type="text/css" rel="stylesheet" href="./index.css" media="all" />
   </head>
-  <body>
+  <body class="dark-mode">
     <template id="switch-button">
       <div class="switch-button-control">
         <div class="switch-button" :class="{ enabled: isEnabled }" @click="toggle" :style="{'--color': color}">
@@ -31,13 +31,13 @@
       </div>
     </template>
 
-    <div id="app" v-cloak>
-      <div id="app_container" class="wrapper">
+    <div id="app" v-cloak >
+      <div id="app_container" class="wrapper" :style="{'background-color': connectionOK ? '#FFF': '#CCC'}">
         <!-- Control panel -->
-        <status-panel
-          :heatbeat="heartBeat"
+        <status-panel          
           :connection-socket="socketConnectedState"
-          title="Cube Monitor + Vue DEMO"
+          :connection-mcu="connectionMcu"
+         
           @measurement-start="measurementStart"
           @measurement-stop="measurementStop"
         >
@@ -63,13 +63,40 @@
             </div>
           </collapsable>
 
+          <!-- number-input -->
+            <collapsable id="programm-variables" title-text="Programm variables">
+            <div class="collapsable-content">
+              <div v-for="(item, index) in programmVariables" class="flex-container-item">
+                <range-signal-name-value :item="item"></range-signal-name-value>
+                <div style="display: flex"> 
+                <forcing-checkbox
+                  :id="index"
+                  @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, programmVariables, ...arguments)"
+                  style="margin-top: 0.3rem"
+                  el-size="lg"
+                >
+                </forcing-checkbox>
+                <number-input
+                  @input-change="setForcedValueAndSendRequest(analogInputsReact, programmVariables, ...arguments)"
+                  :id="index"
+                  :input="item"
+                  ></number-input>
+                </div>
+              </div>
+            </div>
+          </collapsable>
+
+          <!-- Analog inputs -->
           <collapsable id="analog-inputs" title-text="Analog Inputs">
             <div class="collapsable-content">
               <div v-for="(item, index) in analogInputs" class="flex-container-item">
                 <range-signal-name-value :item="item"></range-signal-name-value>
+                <div style="display: flex; justify-content: center"> 
                 <forcing-checkbox
                   :id="index"
                   @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
+                  style="margin-top: 0.5rem"
+                  el-size="lg"
                 >
                 </forcing-checkbox>
                 <range-input-slider
@@ -77,10 +104,12 @@
                   :id="index"
                   :input="item"
                   ></range-input>
+                </div>
               </div>
             </div>
           </collapsable>
 
+          <!-- Analog outputs -->
           <collapsable id="analog-outputs" title-text="Analog Outputs">
             <div class="collapsable-content">
               <div v-for="(item, index) in analogOutputs" class="flex-container-item">
@@ -89,20 +118,18 @@
             </div>
           </collapsable>
 
-          <collapsable id="adc-dac-graph" title-text="ACD1/DAC1 Graph">
-            <!-- <div class="graph-container"> -->
-              <chart-3-values
+          <!-- Graph -->
+          <collapsable id="adc-dac-graph" title-text="ACD1/DAC1 Graph">  
+              <variable-graph
                 ref="childref"
                 id="1"
                 name="adc-dac-canvas"
-                v-bind:data1="analogInputs[0].value"
-                v-bind:data2="analogOutputs[0].value"
-                v-bind:data3="[1,2]"
+                
+                v-bind:data3="[analogInputs[0].value,analogOutputs[0].value]"
                 :colors="['red', 'blue']"
                 :labels="['ADC', 'DAC']"
                 :refresh="1000"
-              />
-            <!-- </div> -->
+              />         
           </collapsable>
 
           <!-- Outputs -->
@@ -140,6 +167,15 @@
         $("#sortable").sortable();
         $("#sortable").disableSelection();
       });
+
+      document.onkeypress = function (e) {
+        e = e || window.event;
+        if (e.keyCode ==13) {
+          document.documentElement.classList.toggle('dark-mode');
+        }
+      }
+
+
     </script>
   </body>
 </html>

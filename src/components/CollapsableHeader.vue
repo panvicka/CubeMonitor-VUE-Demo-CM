@@ -41,7 +41,7 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 1em;
-  color: black;
+  color: var(--black);
   margin-top: 1em;
 }
 

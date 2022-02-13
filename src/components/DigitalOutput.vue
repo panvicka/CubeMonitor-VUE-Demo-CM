@@ -5,8 +5,8 @@
       <br />
       {{ digitalOutput.description }}
     </div>
-   
-    <span class="state" :class="digitalOutput.value ? 'state-on' : 'state-off'">{{
+
+    <span class="state" :class="digitalOutput.value ? 'text-success' : 'text-danger'">{{
       digitalOutput.value ? "ON" : "OFF"
     }}</span>
   </div>
@@ -18,16 +18,7 @@ export default {
   props: {
     digitalOutput: Object,
   },
-  methods: {},
 };
 </script>
 
-<style scoped>
-.state-on {
-  color: green;
-}
-
-.state-off {
-  color: rgb(196, 4, 4);
-}
-</style>
+ 

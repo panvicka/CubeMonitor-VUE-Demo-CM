@@ -13,13 +13,13 @@
       ></b-form-input>
       <div class="threshold-values">{{ input.max / input.scale }}{{ input.unit }}</div>
     </div>
-    <span>{{ inputValue / input.scale }}{{ input.unit }}</span>
+    <span class="current-value">{{ inputValue / input.scale }}{{ input.unit }}</span>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'RangeInput',
+  name: "RangeInput",
   data() {
     return {
       inputValue: 0,
@@ -31,18 +31,17 @@ export default {
   },
   methods: {
     onChange(id, value) {
-      console.log(`change on input with id ${id} to ${value}`);
-      this.$emit('input-change', id, value);
+      this.$emit("input-change", id, value);
     },
   },
 };
 </script>
 
 <style scoped>
-span {
+.current-value {
   text-align: center;
   margin-top: -0.9em;
-  color: rgb(0, 98, 205);
+  color: var(--primary);
   opacity: 80%;
 }
 
@@ -61,7 +60,7 @@ span {
 }
 
 .threshold-values {
-  color: rgb(0, 98, 205);
+  color: var(--primary);
   font-weight: bolder;
   margin: 0.5em;
   font-size: 1.1em;

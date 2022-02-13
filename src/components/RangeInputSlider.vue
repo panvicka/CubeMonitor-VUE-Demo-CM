@@ -68,7 +68,7 @@ export default {
 span {
   text-align: center;
   margin-top: -0.9em;
-  color: rgb(0, 98, 205);
+  color: var(--primary);
   opacity: 80%;
 }
 
@@ -88,7 +88,7 @@ span {
 }
 
 .threshold-values {
-  color: rgb(0, 98, 205);
+   color: var(--primary);
   font-weight: bolder;
   margin: 0.5em;
   font-size: 1.1em;

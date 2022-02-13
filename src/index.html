@@ -19,7 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <link type="text/css" rel="stylesheet" href="./index.css" media="all" />
   </head>
-  <body >
+  <body class="dark-mode">
     <template id="switch-button">
       <div class="switch-button-control">
         <div class="switch-button" :class="{ enabled: isEnabled }" @click="toggle" :style="{'--color': color}">
@@ -167,6 +167,15 @@
         $("#sortable").sortable();
         $("#sortable").disableSelection();
       });
+
+      document.onkeypress = function (e) {
+        e = e || window.event;
+        if (e.keyCode ==13) {
+          document.documentElement.classList.toggle('dark-mode');
+        }
+      }
+
+
     </script>
   </body>
 </html>
