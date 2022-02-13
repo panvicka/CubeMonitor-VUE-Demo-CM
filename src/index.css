@@ -13,7 +13,6 @@
 :root {
   --light-gray: rgba(236, 236, 236, 0.705);
   --black: rgb(17, 17, 17);
-  
 }
 
 /* .dark-mode {
@@ -28,6 +27,17 @@
   box-sizing: border-box;
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -40,7 +50,7 @@ body {
 }
 
 body .dark-mode {
- background-color: rgb(68, 68, 68);
+  background-color: rgb(68, 68, 68);
 }
 
 .collapsable-content {
@@ -58,7 +68,6 @@ body .dark-mode {
   margin: 2rem;
   padding: 2rem;
 }
-
 
 .flex-container-row {
   flex-direction: row;
@@ -168,5 +177,3 @@ body .dark-mode {
   justify-content: center;
   align-items: center;
 }
-
- 

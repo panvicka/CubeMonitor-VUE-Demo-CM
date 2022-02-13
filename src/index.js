@@ -16,7 +16,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import Vue from 'vue'
+import Vue from "vue";
 
 import { analog_inputs_def, analogInputsReact } from "./mcu_variable_definitions/analog_inputs";
 import { analog_outputs_def } from "./mcu_variable_definitions/analog_outputs";
@@ -26,6 +26,7 @@ import { back_door_def } from "./mcu_variable_definitions/back_door";
 import { programm_variables_def } from "./mcu_variable_definitions/programm_variables";
 
 import StatusPanel from "./pages/StatusPanel.vue";
+import PageFooter from "./pages/PageFooter.vue";
 
 import VariableGraph from "./components/VariableGraph.vue";
 import RangeInputSlider from "./components/RangeInputSlider.vue";
@@ -47,17 +48,19 @@ import {
   faStopCircle,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faChevronUp, faChevronDown, faArrowsAlt, faMicrochip, faPlayCircle, faStopCircle, faTrash);
+library.add(faChevronUp, faChevronDown, faArrowsAlt, faMicrochip, faPlayCircle, faStopCircle, faTrash, faGithub);
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
-import "../sass/main.scss"
+import "../sass/main.scss";
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
-("use strict")
+("use strict");
 
 /** @see https://github.com/TotallyInformation/node-red-contrib-uibuilder/wiki/Front-End-Library---available-properties-and-methods */
 Vue.component("font-awesome-icon", FontAwesomeIcon);
@@ -67,7 +70,7 @@ new Vue({
   components: {
     "button-group": ButtonGroup,
     "variable-graph": VariableGraph,
-     collapsable: Collapsable,
+    collapsable: Collapsable,
     "status-panel": StatusPanel,
     "digital-output": DigitalOutput,
     "digital-input": DigitalInput,
@@ -75,6 +78,7 @@ new Vue({
     "range-signal-name-value": RangeSignalNameValue,
     "forcing-checkbox": ForcingCheckBox,
     "range-input-slider": RangeInputSlider,
+    "page-footer": PageFooter,
   },
   data: {
     feVersion: "",

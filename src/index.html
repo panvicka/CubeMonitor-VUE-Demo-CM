@@ -17,25 +17,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <link type="text/css" rel="stylesheet" href="./index.css" media="all" />
   </head>
-  <body class="dark-mode">
-    <template id="switch-button">
-      <div class="switch-button-control">
-        <div class="switch-button" :class="{ enabled: isEnabled }" @click="toggle" :style="{'--color': color}">
-          <div class="button"></div>
-        </div>
-        <div class="switch-button-label">
-          <slot></slot>
-        </div>
-      </div>
-    </template>
+  <body>
 
-    <div id="app" v-cloak >
+    <div id="app" v-cloak>
       <div id="app_container" class="wrapper" :style="{'background-color': connectionOK ? '#FFF': '#CCC'}">
         <!-- Control panel -->
-        <status-panel          
+        <status-panel
           :connection-socket="socketConnectedState"
           :connection-mcu="connectionMcu"
-         
           @measurement-start="measurementStart"
           @measurement-stop="measurementStop"
         >
@@ -62,22 +51,22 @@
           </collapsable>
 
           <!-- number-input -->
-            <collapsable id="programm-variables" title-text="Programm variables">
+          <collapsable id="programm-variables" title-text="Programm variables">
             <div class="collapsable-content">
               <div v-for="(item, index) in programmVariables" class="flex-container-item">
                 <range-signal-name-value :item="item"></range-signal-name-value>
-                <div style="display: flex"> 
-                <forcing-checkbox
-                  :id="index"
-                  @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, programmVariables, ...arguments)"
-                  style="margin-top: 0.3rem"
-                  el-size="lg"
-                >
-                </forcing-checkbox>
-                <number-input
-                  @input-change="setForcedValueAndSendRequest(analogInputsReact, programmVariables, ...arguments)"
-                  :id="index"
-                  :input="item"
+                <div style="display: flex">
+                  <forcing-checkbox
+                    :id="index"
+                    @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, programmVariables, ...arguments)"
+                    style="margin-top: 0.3rem"
+                    el-size="lg"
+                  >
+                  </forcing-checkbox>
+                  <number-input
+                    @input-change="setForcedValueAndSendRequest(analogInputsReact, programmVariables, ...arguments)"
+                    :id="index"
+                    :input="item"
                   ></number-input>
                 </div>
               </div>
@@ -89,18 +78,18 @@
             <div class="collapsable-content">
               <div v-for="(item, index) in analogInputs" class="flex-container-item">
                 <range-signal-name-value :item="item"></range-signal-name-value>
-                <div style="display: flex; justify-content: center"> 
-                <forcing-checkbox
-                  :id="index"
-                  @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
-                  style="margin-top: 0.3rem"
-                  el-size="lg"
-                >
-                </forcing-checkbox>
-                <range-input-slider
-                  @input-change="setForcedValueAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
-                  :id="index"
-                  :input="item"
+                <div style="display: flex; justify-content: center">
+                  <forcing-checkbox
+                    :id="index"
+                    @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
+                    style="margin-top: 0.3rem"
+                    el-size="lg"
+                  >
+                  </forcing-checkbox>
+                  <range-input-slider
+                    @input-change="setForcedValueAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
+                    :id="index"
+                    :input="item"
                   ></range-input-slider>
                 </div>
               </div>
@@ -117,17 +106,16 @@
           </collapsable>
 
           <!-- Graph -->
-          <collapsable id="adc-dac-graph" title-text="ACD1/DAC1 Graph">  
-              <variable-graph
-                ref="childref"
-                id="1"
-                name="adc-dac-canvas"
-                
-                v-bind:data3="[analogInputs[0].value,analogOutputs[0].value]"
-                :colors="['red', 'blue']"
-                :labels="['ADC', 'DAC']"
-                :refresh="1000"
-              />         
+          <collapsable id="adc-dac-graph" title-text="ACD1/DAC1 Graph">
+            <variable-graph
+              ref="childref"
+              id="1"
+              name="adc-dac-canvas"
+              v-bind:data3="[analogInputs[0].value,analogOutputs[0].value]"
+              :colors="['red', 'blue']"
+              :labels="['ADC', 'DAC']"
+              :refresh="1000"
+            />
           </collapsable>
 
           <!-- Outputs -->
@@ -139,13 +127,13 @@
             </div>
           </collapsable>
         </div>
-
-
       </div>
+
+      <page-footer></page-footer>
     </div>
     <!-- REQUIRED: Socket.IO is loaded only once for all instances. Without this, you don't get a websocket connection -->
     <script src="../uibuilder/vendor/socket.io/socket.io.js"></script>
-     <!-- REQUIRED: Sets up Socket listeners and the msg object -->
+    <!-- REQUIRED: Sets up Socket listeners and the msg object -->
     <script src="./uibuilderfe.js"></script>
     <script src="./main.js" type="text/javascript"></script>
 
@@ -154,9 +142,6 @@
         $("#sortable").sortable();
         $("#sortable").disableSelection();
       });
-
- 
-
     </script>
   </body>
 </html>
