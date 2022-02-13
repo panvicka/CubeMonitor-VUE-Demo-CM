@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="flex-row">
-      <span class="card-title">{{ digitalOutput.name }}</span>
+    <div class="d-flex flex-row">
+      <span class="collaps-card-title">{{ digitalOutput.name }}</span>
       <br />
       {{ digitalOutput.description }}
     </div>
 
-    <span class="state" :class="digitalOutput.value ? 'text-success' : 'text-danger'">{{
+    <span class="font-weight-bold" :class="digitalOutput.value ? 'text-success' : 'text-danger'">{{
       digitalOutput.value ? "ON" : "OFF"
     }}</span>
   </div>
@@ -20,5 +20,3 @@ export default {
   },
 };
 </script>
-
- 

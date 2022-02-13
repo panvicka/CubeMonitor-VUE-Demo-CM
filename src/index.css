@@ -36,7 +36,6 @@ body {
   /* preventing scroll down from moving content to the left */
   width: calc(100vw - 34px);
   background-color: white;
-  width: 100%;
   height: 100vh;
 }
 
@@ -60,20 +59,6 @@ body .dark-mode {
   padding: 2rem;
 }
 
-.flex-container {
-  /* margin-bottom: 1em;
-  margin-top: 0.3em;
-  display: flex;
-  padding: 1em;
-  background-color: rgba(236, 236, 236, 0.705);
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px,
-    rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  flex-wrap: wrap; */
-}
 
 .flex-container-row {
   flex-direction: row;
@@ -87,8 +72,6 @@ body .dark-mode {
   min-width: 200px;
   min-height: 80px;
   border-radius: 10px;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .flex-container-item-button {
@@ -154,13 +137,16 @@ body .dark-mode {
 
 .row {
   flex-direction: column;
+  /* otherwise weird 15px margin added by jquery probably? */
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
 
 .custom-control-label:hover {
   cursor: pointer !important;
 }
 
-.card-title {
+.collaps-card-title {
   text-transform: uppercase;
   font-weight: bolder;
   margin: 0;

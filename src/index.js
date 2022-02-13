@@ -28,7 +28,6 @@ import { programm_variables_def } from "./mcu_variable_definitions/programm_vari
 import StatusPanel from "./pages/StatusPanel.vue";
 
 import VariableGraph from "./components/VariableGraph.vue";
-import TextOutput from "./components/TextOutput.vue";
 import RangeInputSlider from "./components/RangeInputSlider.vue";
 import Collapsable from "./components/Collapsable.vue";
 import ButtonGroup from "./components/ButtonGroup.vue";
@@ -54,8 +53,6 @@ library.add(faChevronUp, faChevronDown, faArrowsAlt, faMicrochip, faPlayCircle, 
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "../sass/main.scss"
-// import "bootstrap/dist/css/bootstrap.css";
-// import "bootstrap-vue/dist/bootstrap-vue.css";
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
@@ -70,8 +67,7 @@ new Vue({
   components: {
     "button-group": ButtonGroup,
     "variable-graph": VariableGraph,
-    "text-output": TextOutput,
-    collapsable: Collapsable,
+     collapsable: Collapsable,
     "status-panel": StatusPanel,
     "digital-output": DigitalOutput,
     "digital-input": DigitalInput,

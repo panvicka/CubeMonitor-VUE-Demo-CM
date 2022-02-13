@@ -1,7 +1,7 @@
 <template>
-  <div class="range-input-wrapper">
-    <div class="inner-wrapper">
-      <div class="threshold-values" :class="!input.forced && 'hidden'">
+  <div class="d-flex flex-column">
+    <div class="d-flex justify-content-start align-items-center">
+      <div class="font-weight-bold text-primary m-1" :class="!input.forced && 'text-dark'">
         {{ input.min / input.scale }}{{ input.unit }}
       </div>
       <b-form-input
@@ -14,12 +14,12 @@
         :step="input.step"
         @input="onChange(id, inputValue)"
       ></b-form-input>
-      <div class="threshold-values " :class="!input.forced && 'hidden'">
+      <div class="font-weight-bold text-primary m-1 " :class="!input.forced && 'text-dark'">
         {{ input.max / input.scale }}{{ input.unit }}
       </div>
     </div>
     <!-- round to 2 decimal places -->
-    <span :class="!input.forced && 'hidden'"
+    <span :class="input.forced ? 'text-primary' : 'text-dark'" class="text-center"
       >{{ Math.round((inputValue / input.scale) * 100) / 100 }}{{ input.unit }}</span
     >
   </div>
@@ -66,35 +66,12 @@ export default {
 
 <style scoped>
 span {
-  text-align: center;
   margin-top: -0.9em;
-  color: var(--primary);
   opacity: 80%;
 }
 
-.range-input-wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 200px;
-}
-.inner-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .custom-range {
-  width: 60%;
+  width: 100px;
   margin-bottom: 0px;
-}
-
-.threshold-values {
-   color: var(--primary);
-  font-weight: bolder;
-  margin: 0.5em;
-  font-size: 1.1em;
-}
-
-.hidden {
-  color: rgb(58, 60, 61);
 }
 </style>

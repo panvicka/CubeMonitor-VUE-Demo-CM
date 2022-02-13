@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div class="flex-row">
-      <span class="card-title">{{ digitalInput.name }}</span>
+    <div class="d-flex flex-row">
+      <span class="collaps-card-title">{{ digitalInput.name }}</span>
       {{ digitalInput.description }}
     </div>
 
-    <span class="state" :class="digitalInput.value ? 'text-success' : 'text-danger'">{{
+    <span class="font-weight-bold" :class="digitalInput.value ? 'text-success' : 'text-danger'">{{
       digitalInput.value ? "ON" : "OFF"
     }}</span>
 
-    <div class="controls">
+    <div>
       <b-form-checkbox v-model="forced" @change="onChangeForced(id, forced)" switch>
         {{ forced ? "overwrite activated" : "overwrite deactivate" }}
       </b-form-checkbox>

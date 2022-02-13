@@ -1,7 +1,7 @@
 export var programm_variables_def = [
   {
-    min: null,
-    max: null,
+    min: 0,
+    max: 300,
     unit: null,
     scale: 1,
     name: "Counter",

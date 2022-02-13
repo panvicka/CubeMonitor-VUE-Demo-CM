@@ -1,5 +1,5 @@
 <template>
-  <div class="collapsable-container">
+  <div class="d-flex flex-column align-items-center rounded mt-1 mb-1 collapsable-container">
     <collapsable-header :id="id" :text="titleText" :hidden="hidden"></collapsable-header>
     <collapsable-content :id="id" @hide="setHidden" @show="setShown" class="collapsable-content">
       <slot />
@@ -39,16 +39,8 @@ export default {
 
 <style scoped>
 .collapsable-container {
-  margin-bottom: 0.3rem;
-  margin-top: 0.3rem;
-  display: flex;
-  flex-direction: column;
   background-color: var(--light-gray);
-  border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px,
     rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-  align-items: center;
-  width: 100%;
-  height: auto;
 }
 </style>

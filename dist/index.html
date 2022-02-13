@@ -93,7 +93,7 @@
                 <forcing-checkbox
                   :id="index"
                   @checkbox-change="setForcingEnabledAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
-                  style="margin-top: 0.5rem"
+                  style="margin-top: 0.3rem"
                   el-size="lg"
                 >
                 </forcing-checkbox>
@@ -101,7 +101,7 @@
                   @input-change="setForcedValueAndSendRequest(analogInputsReact, analogInputs, ...arguments)"
                   :id="index"
                   :input="item"
-                  ></range-input>
+                  ></range-input-slider>
                 </div>
               </div>
             </div>
@@ -143,15 +143,10 @@
 
       </div>
     </div>
-    <!-- Dont forget to use minified versions of libraries for production, non-min versions for development only -->
-    <!-- These MUST be in the right order. Note no leading / -->
     <!-- REQUIRED: Socket.IO is loaded only once for all instances. Without this, you don't get a websocket connection -->
     <script src="../uibuilder/vendor/socket.io/socket.io.js"></script>
      <!-- REQUIRED: Sets up Socket listeners and the msg object -->
     <script src="./uibuilderfe.js"></script>
-    <!-- dev version -->
-    <!-- <script src="./uibuilderfe.min.js"></script>     //prod version -->
-    <!-- OPTIONAL: You probably want this. Put your custom code here -->
     <script src="./main.js" type="text/javascript"></script>
 
     <script defer>
