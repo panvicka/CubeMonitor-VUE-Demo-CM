@@ -18,14 +18,15 @@ jobs:
           cache: "npm"
       - run: npm ci
       - run: npm run styleguide:build
+        if: always()
+        run: ls -a
+        run: cd styleguide 
+        run: ls -a 
 
 
       # Deploy the HTML documentation to GitHub Pages
       - name: GH Pages Deployment
         if: always()
-        run: ls -a
-        run: cd styleguide 
-        run: ls -a 
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
