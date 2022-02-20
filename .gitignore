@@ -36,3 +36,7 @@ doc-test
 *.DS_Store
 .AppleDouble
 .LSOverride
+
+
+# generated documentation
+styleguide/
