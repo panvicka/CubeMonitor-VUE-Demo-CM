@@ -21,6 +21,7 @@ jobs:
 
       # Deploy the HTML documentation to GitHub Pages
       - name: GH Pages Deployment
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
