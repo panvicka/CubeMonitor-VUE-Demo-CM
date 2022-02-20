@@ -1,17 +1,19 @@
 <template>
-  <div class="graph-wrapper">
+  <div class="d-flex flex-row">
     <canvas :id="name" class="graph"></canvas>
-    <div class="graph-buttons-wrapper">
-      <font-awesome-icon class="start graph-button" v-on:click="start()" icon="play-circle" />
-      <font-awesome-icon class="stop graph-button" v-on:click="stop()" icon="stop-circle" />
-      <font-awesome-icon class="trash graph-button" v-on:click="clean()" icon="trash" />
+    <div class="graph-buttons-wrapper d-flex align-items-center pl-1">
+      <font-awesome-icon class="start graph-button m-1" v-on:click="start()" icon="play-circle" />
+      <font-awesome-icon class="stop graph-button m-1" v-on:click="stop()" icon="stop-circle" />
+      <font-awesome-icon class="trash graph-button m-1" v-on:click="clean()" icon="trash" />
     </div>
   </div>
 </template>
 
 <script>
 import Chart from "chart.js/auto";
-
+/**
+ * @displayName Graph
+ */
 export default {
   name: "VariableGraph",
   methods: {
@@ -22,22 +24,31 @@ export default {
       this.myChart.data.labels.push(time);
       this.myChart.update();
     },
+    /**
+     * Clicking the trash icon will clean the graph data
+     */
     clean() {
-      for (let i = 0; i < this.data3.length; i++) {
+      for (let i = 0; i < this.data.length; i++) {
         this.myChart.data.datasets[i].data = [];
       }
       this.myChart.update();
     },
+    /**
+     * Clicking the stop icon will stop the data plotting
+     */
     stop() {
       window.clearInterval(this.interval);
     },
+    /**
+     * Clicking the stop icon will start the data plotting
+     */
     start() {
       this.interval = setInterval(() => {
         let date = new Date();
         let hours = date.getHours();
         let minutes = date.getMinutes();
         minutes = (minutes < 10 ? "0" : "") + minutes;
-        this.adddataNew(this.data3, `${hours}:${minutes}`);
+        this.adddataNew(this.data, `${hours}:${minutes}`);
       }, this.refresh);
     },
     createChart(chartId, chardData) {
@@ -50,11 +61,17 @@ export default {
     },
   },
   props: {
+    // Graph ID, must be unique
     id: String,
+    // Graph name, must be unique
     name: String,
-    data3: Array,
+    // data
+    data: Array,
+    // Color of the lines, keep the order the same as data
     colors: Array,
+    // Labels, keep the order the same as data
     labels: Array,
+    // refresh rate of the graph
     refresh: Number,
   },
 
@@ -85,7 +102,7 @@ export default {
   },
   mounted() {
     this.createChart(this.name, this.chartSetting);
-    for (let i = 0; i < this.data3.length; i++) {
+    for (let i = 0; i < this.data.length; i++) {
       this.myChart.data.datasets.push({
         label: `${this.labels[i]}`,
         data: [],
@@ -107,20 +124,8 @@ export default {
   width: 600px !important;
 }
 
-.graph-wrapper {
-  display: flex;
-  flex-direction: row;
-}
-
-.graph-buttons-wrapper {
-  display: flex;
-  align-items: center;
-  padding-left: 0.9rem;
-}
-
 .graph-button {
   font-size: 2em;
-  margin: 0.7rem;
   cursor: pointer;
   transition: opacity linear 0.2s;
   color: var(--grey);
@@ -130,3 +135,8 @@ export default {
   opacity: 0.8;
 }
 </style>
+
+<docs>
+Creates a graph from the passed data array. Custom labels, colors and refresh rate can be set. There are also buttons for 
+controlling the graph. 
+</docs>

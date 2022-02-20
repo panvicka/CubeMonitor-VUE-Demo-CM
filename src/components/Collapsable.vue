@@ -11,6 +11,10 @@
 import CollapsableContent from "./CollapsableContent.vue";
 import CollapsableHeader from "./CollapsableHeader.vue";
 
+/**
+ *
+ * @displayName Collapsable (wrapper) 
+ */
 export default {
   data: () => {
     return {
@@ -19,7 +23,12 @@ export default {
   },
   name: "Collapsable",
   props: {
-    id: String,
+    // Element ID, must be unique
+    id: {
+      type: String,
+      required: true,
+    },
+    // text in the header
     titleText: String,
   },
   components: {
@@ -44,3 +53,7 @@ export default {
     rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 }
 </style>
+
+<docs>
+Creates a collapsable content with  [header](#collapsableheader) and [content](#collapsablecontent)
+</docs>

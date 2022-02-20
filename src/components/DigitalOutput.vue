@@ -13,6 +13,9 @@
 </template>
 
 <script lang="ts">
+/**
+ * @displayName Digital output
+ */
 export default {
   name: "DigitalOutput",
   props: {
@@ -20,3 +23,7 @@ export default {
   },
 };
 </script>
+
+<docs>
+Shows a state of a simple digital output.
+</docs>

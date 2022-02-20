@@ -22,16 +22,25 @@
 </template>
 
 <script lang="ts">
+/**
+ * @displayName Number input for analog/range inputs
+ */
 export default {
   name: "NumberValue",
   data() {
     return {
+      // current value
       inputValue: 0,
     };
   },
   props: {
-    id: Number,
-    input: Object,
+    // element ID
+    id: {
+      type: Number,
+      required: true,
+    },
+    // input object
+    input: Object
   },
   methods: {
     onChange(id, value) {
@@ -51,7 +60,12 @@ export default {
 
       console.log(value);
       this.inputValue = value / this.input.scale;
-      console.log(`change on input with id ${id} to ${value}`);
+
+       /**
+       * Called when the input value is changed
+       * @property {Number} id input ID
+       * @property {Boolean} value new value
+       */
       this.$emit("input-change", id, value);
     },
   },
@@ -63,14 +77,12 @@ export default {
   width: 80px;
 }
 
-/* .threshold-values {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-left: 1rem;
-} */
-
 small {
   color: var(--grey);
 }
 </style>
+
+
+<docs>
+Number input for setting the ovewrite values of analog/ranged input. 
+</docs>

@@ -8,6 +8,9 @@
 </template>
 
 <script lang="ts">
+/**
+ * @displayName Ranged input value
+ */
 export default {
   name: "RangeSignalNameValue",
   props: {
@@ -15,5 +18,10 @@ export default {
   },
 };
 </script>
+
+
+<docs>
+Shows value of an analog input with scaling and unit.
+</docs>
 
  

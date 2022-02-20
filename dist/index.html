@@ -111,7 +111,7 @@
               ref="childref"
               id="1"
               name="adc-dac-canvas"
-              v-bind:data3="[analogInputs[0].value,analogOutputs[0].value]"
+              v-bind:data="[analogInputs[0].value,analogOutputs[0].value]"
               :colors="['red', 'blue']"
               :labels="['ADC', 'DAC']"
               :refresh="1000"

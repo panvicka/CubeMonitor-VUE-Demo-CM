@@ -1,21 +1,29 @@
 <template>
-<!-- wrapping collapsable content into div prevents animation glitch -->
+  <!-- wrapping collapsable content into div prevents animation glitch -->
   <div>
     <b-collapse :id="id" @hide="$emit('hide')" @show="$emit('show')">
+      <!-- @slot The content -->
       <slot />
     </b-collapse>
   </div>
 </template>
 
 <script>
+/**
+ * @displayName Collapsable content
+ */
 export default {
   name: "CollapsableContent",
   props: {
-    id: String,
+    // element ID, must be unique
+    id: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
 
-<style scoped>
-
-</style>
+<docs>
+Content can be hidden by clicking of the [header](#collapsableheader).
+ </docs>
