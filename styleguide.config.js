@@ -2,7 +2,19 @@ var webpack = require("webpack");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 module.exports = {
-  components: "src/components/**/[A-Z]*.vue",
+  
+  sections: [
+    {
+      name: "Introduction",
+      content: "docs/introduction.md"
+    },
+    {
+      name: 'UI Components',
+      components: "src/components/**/[A-Z]*.vue",
+      exampleMode: 'collapse', // 'hide' | 'collapse' | 'expand'
+      usageMode: 'collapse' // 'hide' | 'collapse' | 'expand'
+    }
+  ],
   webpackConfig: Object.assign({}, require("./webpack.config.dev.js"), {
     plugins: [
       new webpack.DefinePlugin({
