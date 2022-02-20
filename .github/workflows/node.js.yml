@@ -18,6 +18,9 @@ jobs:
           cache: "npm"
       - run: npm ci
       - run: npm run styleguide:build
+      - run: ls -a
+      - run: cd styleguide 
+      - run: ls -a 
 
       # Deploy the HTML documentation to GitHub Pages
       - name: GH Pages Deployment
