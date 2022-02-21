@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "node tools/postinstall.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --watch --config webpack.config.dev.js",
     "styleguide": "vue-styleguidist server",
@@ -22,6 +23,7 @@
     "chart.js": "^3.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "replace-in-file": "^6.3.2",
     "style-loader": "^3.3.1",
     "vue": "^2.6.12"
   },
