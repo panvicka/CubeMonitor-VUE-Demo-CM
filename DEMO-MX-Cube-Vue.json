@@ -12,8 +12,8 @@
         "z": "2ea644c0.cadc8c",
         "name": "myProbe_Out",
         "probeconfig": "3ef7a79d.636a38",
-        "x": 1900,
-        "y": 1720,
+        "x": 1800,
+        "y": 1540,
         "wires": []
     },
     {
@@ -22,8 +22,8 @@
         "z": "2ea644c0.cadc8c",
         "name": "myProbe_In",
         "probeconfig": "3ef7a79d.636a38",
-        "x": 110,
-        "y": 840,
+        "x": 470,
+        "y": 900,
         "wires": [
             [
                 "9a41ed56.50d51"
@@ -43,13 +43,13 @@
         "triggername": "analog_inputs[0].mx_rewrites",
         "triggerthreshold": "30000",
         "frequency": "",
-        "frequencyType": "0",
+        "frequencyType": "100",
         "snapshotheader": "",
         "mode": "direct",
-        "lastImportedTime": 1644167890918,
+        "lastImportedTime": 1645556479476,
         "openStatus": true,
-        "x": 1590,
-        "y": 1720,
+        "x": 1550,
+        "y": 1540,
         "wires": [
             [
                 "bf64047c.b6de58"
@@ -66,33 +66,13 @@
         "expressions": [],
         "statistics": [],
         "logmode": "full",
-        "x": 330,
-        "y": 840,
+        "x": 670,
+        "y": 900,
         "wires": [
             [
                 "b43414d3.373d58"
             ],
             []
-        ]
-    },
-    {
-        "id": "4f4abf67.e828",
-        "type": "inject",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 140,
-        "y": 560,
-        "wires": [
-            [
-                "91dd748a.1abad8"
-            ]
         ]
     },
     {
@@ -110,13 +90,12 @@
         "frequencyType": "0",
         "snapshotheader": "",
         "mode": "direct",
-        "lastImportedTime": 1631170153009,
+        "lastImportedTime": 1645554892617,
         "openStatus": true,
-        "x": 350,
-        "y": 560,
+        "x": 1730,
+        "y": 1640,
         "wires": [
             [
-                "ee25a053.4baa6",
                 "56645f12.9192c"
             ],
             []
@@ -127,64 +106,17 @@
         "type": "function",
         "z": "2ea644c0.cadc8c",
         "name": "",
-        "func": "\nvar keys = flow.keys();\nfor(var i=0;i<flow.length;i++){\n    flow.set(keys[i], undefined);\n}\n\nvar m_out=[]; //rray for message objects\nvar payload=msg.payload;\n\n\n\n\nfor (let i =0; i<msg.payload.variablelist.length; i++) {\n     global.set(payload.variablelist[i].name+\"_adr\", payload.variablelist[i].address);  \n     \n \n  \n    \n    \n    var newmsg={payload:payload.variablelist[i].name}\n    m_out.push(newmsg);\n}\n\n// for debugging\n// return[m_out];\n\n \n",
+        "func": "\nvar keys = flow.keys();\n\n// delete everything in the store\nfor(var i=0;i<flow.length;i++){\n    flow.set(keys[i], undefined);\n}\n\nvar payload=msg.payload;\n\nfor (let i =0; i<msg.payload.variablelist.length; i++) {\n    global.set(payload.variablelist[i].name+\"_adr\", payload.variablelist[i].address);  \n}\n\nnode.warn('generated new global data adresses');\n\n\n\n \n",
         "outputs": 1,
         "noerr": 0,
-        "x": 590,
-        "y": 620,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1920,
+        "y": 1640,
         "wires": [
-            [
-                "35679067.935bc",
-                "e82652a0.e7bda"
-            ]
+            []
         ]
-    },
-    {
-        "id": "ee25a053.4baa6",
-        "type": "debug",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 610,
-        "y": 540,
-        "wires": []
-    },
-    {
-        "id": "e82652a0.e7bda",
-        "type": "ui_toast",
-        "z": "2ea644c0.cadc8c",
-        "position": "top right",
-        "displayTime": "3",
-        "highlight": "",
-        "sendall": true,
-        "outputs": 0,
-        "ok": "OK",
-        "cancel": "",
-        "raw": false,
-        "topic": "",
-        "name": "",
-        "x": 810,
-        "y": 600,
-        "wires": []
-    },
-    {
-        "id": "35679067.935bc",
-        "type": "debug",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 810,
-        "y": 640,
-        "wires": []
     },
     {
         "id": "b43414d3.373d58",
@@ -206,8 +138,8 @@
             "4658d38e.cfd69c",
             "eed663fe.08c43"
         ],
-        "x": 495,
-        "y": 840,
+        "x": 935,
+        "y": 900,
         "wires": []
     },
     {
@@ -218,8 +150,8 @@
         "links": [
             "b43414d3.373d58"
         ],
-        "x": 75,
-        "y": 1500,
+        "x": 35,
+        "y": 1200,
         "wires": [
             [
                 "789c66a0.520528",
@@ -250,12 +182,11 @@
         "tokenAutoExtend": false,
         "reload": false,
         "sourceFolder": "dist",
-        "x": 1250,
-        "y": 1480,
+        "x": 1310,
+        "y": 1180,
         "wires": [
             [
-                "e4b47361.7589d",
-                "72d9a31.fc9115c"
+                "e4b47361.7589d"
             ],
             []
         ]
@@ -265,39 +196,23 @@
         "type": "function",
         "z": "2ea644c0.cadc8c",
         "name": "",
-        "func": "let newMsg= {};\nlet outMsg = [];\n\nif (msg.topic === 'start') {\n    node.warn('requesting start');\n    return [null, msg];\n } else if (msg.topic === 'stop') {\n    node.warn('requesting stop');\n    return [null, msg];\n } else {\n\n\nlet address = global.get(msg.payload[0].variable);\n let value = msg.payload[0].valueToset.toString();\n \n\n\n\n\nvar varibleList = [];\n\nfor (let i = 0; i< msg.payload.length; i++) {\n   if (msg.payload[i].valueToset < -32768 || msg.payload[i].valueToset > 32768) {\n      varibleList.push(\n        {\n        \"address\": global.get(msg.payload[i].variable), \n        \"type\": 4, \n        \"value\": msg.payload[i].valueToset.toString()\n        });\n   } else {\n       varibleList.push(\n        {\n        \"address\": global.get(msg.payload[i].variable), \n        \"type\": 4, \n        \"value\": msg.payload[i].valueToset.toString()\n        });\n   }\n}\n\n node.warn(varibleList);\n\nmsg.payload = {\n  \"variablelist\": [...varibleList],\n  \"accesspoint\": 0\n}\n\nmsg.topic = \"write\";\nreturn [msg, null];\n}\n\n\n",
+        "func": "let newMsg= {};\nlet outMsg = [];\n\nif (msg.topic === 'start') {\n    node.warn('requesting start');\n    return [null, msg];\n } else if (msg.topic === 'stop') {\n    node.warn('requesting stop');\n    return [null, msg];\n } else {\n\n\nlet address = global.get(msg.payload[0].variable);\n let value = msg.payload[0].valueToset.toString();\n \n\nvar varibleList = [];\n\nfor (let i = 0; i< msg.payload.length; i++) {\n   if (msg.payload[i].valueToset < -32768 || msg.payload[i].valueToset > 32768) {\n      varibleList.push(\n        {\n        \"address\": global.get(msg.payload[i].variable), \n        \"type\": 4, \n        \"value\": msg.payload[i].valueToset.toString()\n        });\n   } else {\n       varibleList.push(\n        {\n        \"address\": global.get(msg.payload[i].variable), \n        \"type\": 4, \n        \"value\": msg.payload[i].valueToset.toString()\n        });\n   }\n}\n\n node.warn(varibleList);\n\nmsg.payload = {\n  \"variablelist\": [...varibleList],\n  \"accesspoint\": 0\n}\n\nmsg.topic = \"write\";\nreturn [msg, null];\n}\n\n\n",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1410,
-        "y": 1540,
+        "x": 1340,
+        "y": 1360,
         "wires": [
             [
-                "23ce5fab.53b63",
                 "ea41865a.8d50b8"
             ],
             [
-                "e0383902.cb2a48",
-                "66909520.398c1c"
+                "66909520.398c1c",
+                "296cf631.0ca95a"
             ]
         ]
-    },
-    {
-        "id": "23ce5fab.53b63",
-        "type": "debug",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1590,
-        "y": 1400,
-        "wires": []
     },
     {
         "id": "ea41865a.8d50b8",
@@ -305,8 +220,8 @@
         "z": "2ea644c0.cadc8c",
         "name": "myProbe_Out",
         "probeconfig": "fe72fbcd.8053a8",
-        "x": 1620,
-        "y": 1440,
+        "x": 1560,
+        "y": 1360,
         "wires": []
     },
     {
@@ -336,8 +251,8 @@
         "checkall": "true",
         "repair": true,
         "outputs": 3,
-        "x": 310,
-        "y": 1480,
+        "x": 270,
+        "y": 1180,
         "wires": [
             [
                 "7eb64543.d79c7c"
@@ -370,8 +285,8 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 590,
-        "y": 1480,
+        "x": 530,
+        "y": 1180,
         "wires": [
             [
                 "664022c2.cdd87c"
@@ -389,11 +304,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
-        "y": 1480,
+        "x": 920,
+        "y": 1180,
         "wires": [
             [
-                "863da45b.72def8"
+                "124195c1.4815da"
             ]
         ]
     },
@@ -401,56 +316,24 @@
         "id": "664022c2.cdd87c",
         "type": "delay",
         "z": "2ea644c0.cadc8c",
-        "name": "10 msg/s",
+        "name": "5 msg/s",
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "10",
+        "rate": "5",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 720,
-        "y": 1480,
+        "x": 780,
+        "y": 1180,
         "wires": [
             [
                 "79ec6864.932df8"
             ]
         ]
-    },
-    {
-        "id": "72d9a31.fc9115c",
-        "type": "debug",
-        "z": "2ea644c0.cadc8c",
-        "name": "llllll",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 1430,
-        "y": 1300,
-        "wires": []
-    },
-    {
-        "id": "e0383902.cb2a48",
-        "type": "debug",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1570,
-        "y": 1620,
-        "wires": []
     },
     {
         "id": "fe27c3e7.33029",
@@ -474,8 +357,8 @@
         "checkall": "true",
         "repair": true,
         "outputs": 2,
-        "x": 310,
-        "y": 1380,
+        "x": 270,
+        "y": 1080,
         "wires": [
             [
                 "e2632aa7.a6dbd8"
@@ -505,8 +388,8 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 590,
-        "y": 1380,
+        "x": 530,
+        "y": 1080,
         "wires": [
             [
                 "e23d5ff6.91874"
@@ -524,11 +407,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
-        "y": 1380,
+        "x": 920,
+        "y": 1080,
         "wires": [
             [
-                "e3ded1f5.24538"
+                "124195c1.4815da"
             ]
         ]
     },
@@ -547,29 +430,11 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 720,
-        "y": 1380,
+        "x": 780,
+        "y": 1080,
         "wires": [
             [
                 "fb679bbd.cae688"
-            ]
-        ]
-    },
-    {
-        "id": "e3ded1f5.24538",
-        "type": "rbe",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "func": "rbe",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "property": "payload",
-        "x": 990,
-        "y": 1380,
-        "wires": [
-            [
-                "124195c1.4815da"
             ]
         ]
     },
@@ -600,8 +465,8 @@
         "checkall": "true",
         "repair": true,
         "outputs": 3,
-        "x": 320,
-        "y": 1540,
+        "x": 280,
+        "y": 1240,
         "wires": [
             [
                 "533c0280.7935ac"
@@ -634,8 +499,8 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 590,
-        "y": 1540,
+        "x": 530,
+        "y": 1240,
         "wires": [
             [
                 "a378bcd6.fc3b7"
@@ -653,11 +518,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
-        "y": 1540,
+        "x": 920,
+        "y": 1240,
         "wires": [
             [
-                "10610e51.14fb22"
+                "124195c1.4815da"
             ]
         ]
     },
@@ -665,40 +530,22 @@
         "id": "a378bcd6.fc3b7",
         "type": "delay",
         "z": "2ea644c0.cadc8c",
-        "name": "10 msg/s",
+        "name": "5 msg/s",
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "10",
+        "rate": "5",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 720,
-        "y": 1540,
+        "x": 780,
+        "y": 1240,
         "wires": [
             [
                 "9b0b008e.cc58c"
-            ]
-        ]
-    },
-    {
-        "id": "10610e51.14fb22",
-        "type": "rbe",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "func": "rbe",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "property": "payload",
-        "x": 990,
-        "y": 1540,
-        "wires": [
-            [
-                "124195c1.4815da"
             ]
         ]
     },
@@ -724,8 +571,8 @@
         "checkall": "true",
         "repair": true,
         "outputs": 2,
-        "x": 320,
-        "y": 1420,
+        "x": 280,
+        "y": 1120,
         "wires": [
             [
                 "b35ec9c1.3b6068"
@@ -755,8 +602,8 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 590,
-        "y": 1420,
+        "x": 530,
+        "y": 1120,
         "wires": [
             [
                 "557b40ed.b451a"
@@ -771,11 +618,11 @@
         "func": "let newMsg= {};\nlet outMsg = [];\n\n//  node.warn(msg.payload[0].variabledata[0].y)\n//  node.warn(msg.payload[0].variabledata[0])\n \n//  node.warn(msg.payload[0].variabledata)\n \nfor (let i = 0; i < msg.payload.length; i++) {\n    \n    let name = msg.payload[i].variablename;\n    let value = msg.payload[i].variabledata[0].y;\n    outMsg.push({ \"variable_name\": name, \"value\": value})\n    \n  \n  \n    \n}\n\nmsg.payload = outMsg;\nmsg.topic = \"analog_outputs\";\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 860,
-        "y": 1420,
+        "x": 920,
+        "y": 1120,
         "wires": [
             [
-                "6b70475d.e8c748"
+                "124195c1.4815da"
             ]
         ]
     },
@@ -794,8 +641,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 720,
-        "y": 1420,
+        "x": 780,
+        "y": 1120,
         "wires": [
             [
                 "90a17e84.613e8"
@@ -803,28 +650,10 @@
         ]
     },
     {
-        "id": "6b70475d.e8c748",
-        "type": "rbe",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "func": "rbe",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "property": "payload",
-        "x": 990,
-        "y": 1420,
-        "wires": [
-            [
-                "124195c1.4815da"
-            ]
-        ]
-    },
-    {
         "id": "789c66a0.520528",
         "type": "switch",
         "z": "2ea644c0.cadc8c",
-        "name": "heartbeat",
+        "name": "live counter",
         "property": "payload.variablename",
         "propertyType": "msg",
         "rules": [
@@ -837,8 +666,8 @@
         "checkall": "true",
         "repair": true,
         "outputs": 1,
-        "x": 300,
-        "y": 1340,
+        "x": 270,
+        "y": 1040,
         "wires": [
             [
                 "5e8a847c.4a156c"
@@ -865,11 +694,11 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 590,
-        "y": 1340,
+        "x": 530,
+        "y": 1040,
         "wires": [
             [
-                "38c7e4ed.a3476c"
+                "1023406d.5b3fe"
             ]
         ]
     },
@@ -878,40 +707,17 @@
         "type": "function",
         "z": "2ea644c0.cadc8c",
         "name": "",
-        "func": "let newMsg= {};\nlet outMsg = [];\n\n//  node.warn(msg.payload[0].variabledata[0].y)\n//  node.warn(msg.payload[0].variabledata[0])\n \n//  node.warn(msg.payload[0].variabledata)\n \nfor (let i = 0; i < msg.payload.length; i++) {\n    \n    let name = msg.payload[i].variablename;\n    let value = msg.payload[i].variabledata[0].y;\n    outMsg.push({ \"variable_name\": name, \"value\": value})\n    \n  \n  \n    \n}\n\nmsg.payload = outMsg;\nmsg.topic = \"heartbeat\";\n\nreturn msg;",
+        "func": "let newMsg= {};\nlet outMsg = [];\n\n\nfor (let i = 0; i < msg.payload.length; i++) {\n    \n    let name = msg.payload[i].variablename;\n    let value = msg.payload[i].variabledata[0].y;\n    outMsg.push({ \"variable_name\": name, \"value\": value})\n \n}\n\nmsg.payload = outMsg;\nmsg.topic = \"live_counter\";\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
-        "y": 1340,
+        "x": 920,
+        "y": 1040,
         "wires": [
             [
                 "9c01856a.2e6998"
-            ]
-        ]
-    },
-    {
-        "id": "38c7e4ed.a3476c",
-        "type": "delay",
-        "z": "2ea644c0.cadc8c",
-        "name": "10 msg/s",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "10",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "x": 720,
-        "y": 1340,
-        "wires": [
-            [
-                "1023406d.5b3fe"
             ]
         ]
     },
@@ -924,9 +730,10 @@
         "gap": "",
         "start": "",
         "inout": "out",
+        "septopics": true,
         "property": "payload",
-        "x": 990,
-        "y": 1340,
+        "x": 1050,
+        "y": 1040,
         "wires": [
             [
                 "124195c1.4815da"
@@ -937,7 +744,7 @@
         "id": "b230112.cf220f",
         "type": "switch",
         "z": "2ea644c0.cadc8c",
-        "name": "counter",
+        "name": "programm data",
         "property": "payload.variablename",
         "propertyType": "msg",
         "rules": [
@@ -950,8 +757,8 @@
         "checkall": "true",
         "repair": true,
         "outputs": 1,
-        "x": 300,
-        "y": 1700,
+        "x": 280,
+        "y": 1300,
         "wires": [
             [
                 "1938fad2.f7e9f5"
@@ -978,8 +785,8 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 590,
-        "y": 1700,
+        "x": 530,
+        "y": 1300,
         "wires": [
             [
                 "bb83311a.abf69"
@@ -997,11 +804,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 850,
-        "y": 1700,
+        "x": 910,
+        "y": 1300,
         "wires": [
             [
-                "4c0a01b0.b623f"
+                "124195c1.4815da"
             ]
         ]
     },
@@ -1009,19 +816,19 @@
         "id": "bb83311a.abf69",
         "type": "delay",
         "z": "2ea644c0.cadc8c",
-        "name": "10 msg/s",
+        "name": "5 msg/s",
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "10",
+        "rate": "5",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 720,
-        "y": 1700,
+        "x": 780,
+        "y": 1300,
         "wires": [
             [
                 "2f886c7b.f7b4f4"
@@ -1029,226 +836,103 @@
         ]
     },
     {
-        "id": "4c0a01b0.b623f",
-        "type": "rbe",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "func": "rbe",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "property": "payload",
-        "x": 970,
-        "y": 1700,
-        "wires": [
-            [
-                "124195c1.4815da"
-            ]
-        ]
-    },
-    {
-        "id": "863da45b.72def8",
-        "type": "rbe",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "func": "rbe",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "septopics": true,
-        "property": "payload",
-        "x": 990,
-        "y": 1480,
-        "wires": [
-            [
-                "124195c1.4815da"
-            ]
-        ]
-    },
-    {
-        "id": "eed663fe.08c43",
-        "type": "link in",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "links": [
-            "b43414d3.373d58"
-        ],
-        "x": 855,
-        "y": 840,
-        "wires": [
-            [
-                "d5c27fd3.742a9"
-            ]
-        ]
-    },
-    {
-        "id": "d2b0f4a3.7c3508",
+        "id": "296cf631.0ca95a",
         "type": "function",
         "z": "2ea644c0.cadc8c",
         "name": "",
-        "func": "\n\nlet output_string = \"\";\n \nfor (let i = 0; i < msg.payload.length; i++) {\n    \n    if (i == msg.payload.length-1) {\n        output_string = output_string+msg.payload[i].variabledata[0].y.toString();\n    } else {\n        output_string = output_string+msg.payload[i].variabledata[0].y.toString()+\",\";\n    }\n    \n}\n\nlet date = new Date();\nlet formattedDate = date.toISOString();\n\nmsg.payload = date+\",\"+output_string;\n\nreturn msg;",
+        "func": "\n\nif (msg.topic === 'start') {\n   msg.payload = 5454654;\n    return msg;\n } else {\n     \nreturn null;\n\n }",
         "outputs": 1,
         "noerr": 0,
-        "x": 1490,
-        "y": 840,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1540,
+        "y": 1640,
         "wires": [
             [
-                "594639d3.86db48"
+                "91dd748a.1abad8"
             ]
         ]
     },
     {
-        "id": "d5c27fd3.742a9",
-        "type": "switch",
+        "id": "ed5cb697.f91728",
+        "type": "comment",
         "z": "2ea644c0.cadc8c",
-        "name": "filter variables to log",
-        "property": "payload.variablename",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "reg_con.cm_dew_point",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "reg_con.cm_heater_current",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "reg_con.cm_heater_setpoint",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "reg_con.cm_process_temp",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": true,
-        "outputs": 4,
-        "x": 1040,
-        "y": 840,
-        "wires": [
-            [
-                "c6e37d83.5d077"
-            ],
-            [
-                "c6e37d83.5d077"
-            ],
-            [
-                "c6e37d83.5d077"
-            ],
-            [
-                "c6e37d83.5d077"
-            ]
-        ]
-    },
-    {
-        "id": "c6e37d83.5d077",
-        "type": "join",
-        "z": "2ea644c0.cadc8c",
-        "name": "",
-        "mode": "custom",
-        "build": "array",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "accumulate": false,
-        "timeout": "",
-        "count": "4",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "num",
-        "reduceFixup": "",
-        "x": 1230,
-        "y": 840,
-        "wires": [
-            [
-                "e3d89be2.0f4788"
-            ]
-        ]
-    },
-    {
-        "id": "e3d89be2.0f4788",
-        "type": "delay",
-        "z": "2ea644c0.cadc8c",
-        "name": "1 msg/s",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "x": 1360,
-        "y": 840,
-        "wires": [
-            [
-                "d2b0f4a3.7c3508"
-            ]
-        ]
-    },
-    {
-        "id": "594639d3.86db48",
-        "type": "file",
-        "z": "2ea644c0.cadc8c",
-        "name": "data.csv",
-        "filename": "C:\\Users\\E.Veisova\\Documents\\data.csv",
-        "appendNewline": true,
-        "createDir": false,
-        "overwriteFile": "false",
-        "encoding": "none",
-        "x": 1700,
-        "y": 840,
-        "wires": [
-            [
-                "98e63c6.890ccc"
-            ]
-        ]
-    },
-    {
-        "id": "98e63c6.890ccc",
-        "type": "debug",
-        "z": "2ea644c0.cadc8c",
-        "name": "saving to file",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 1870,
-        "y": 940,
+        "name": "import the variables here",
+        "info": "",
+        "x": 1590,
+        "y": 1500,
         "wires": []
     },
     {
-        "id": "ddb67f1b.1e645",
-        "type": "inject",
+        "id": "6ef2c5f.79d4c3c",
+        "type": "comment",
         "z": "2ea644c0.cadc8c",
-        "name": "inject header to file ",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "\"dew,heater temp,heater setpoint, process temp",
-        "payloadType": "str",
-        "x": 1290,
-        "y": 760,
-        "wires": [
-            [
-                "594639d3.86db48"
-            ]
-        ]
+        "name": "generating global variables with adresses on session start",
+        "info": "",
+        "x": 1690,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "b86fa6e9.25bb88",
+        "type": "comment",
+        "z": "2ea644c0.cadc8c",
+        "name": "Writing variables happens here",
+        "info": "",
+        "x": 1610,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "c66dd062.f31c1",
+        "type": "comment",
+        "z": "2ea644c0.cadc8c",
+        "name": "Setup for starting the session",
+        "info": "",
+        "x": 1600,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "bdc358cf.7234d8",
+        "type": "comment",
+        "z": "2ea644c0.cadc8c",
+        "name": "Reading out the variables",
+        "info": "",
+        "x": 510,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "dde64caa.c2a2a",
+        "type": "comment",
+        "z": "2ea644c0.cadc8c",
+        "name": "User defined varibles",
+        "info": "",
+        "x": 300,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "6107e41.621ae1c",
+        "type": "comment",
+        "z": "2ea644c0.cadc8c",
+        "name": "set topic in the function",
+        "info": "",
+        "x": 960,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "bc59493.5bf6fb8",
+        "type": "comment",
+        "z": "2ea644c0.cadc8c",
+        "name": "set the correct array length",
+        "info": "",
+        "x": 590,
+        "y": 1000,
+        "wires": []
     },
     {
         "id": "3ef7a79d.636a38",
@@ -3077,7 +2761,7 @@
             {
                 "address": "0x200003ac",
                 "name": "mx_back_door",
-                "type": 3,
+                "type": 4,
                 "checked": true
             },
             {
@@ -3186,8 +2870,8 @@
         ],
         "expand": true,
         "filename": "CubeMon-Vue-Demo-STM32F407VGT6U.elf",
-        "exeModifiedTime": 1644167875608,
-        "configLastUpdate": 1644167890415
+        "exeModifiedTime": 1644678032210,
+        "configLastUpdate": 1644678100105
     },
     {
         "id": "fe72fbcd.8053a8",
