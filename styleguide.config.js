@@ -2,6 +2,7 @@ var webpack = require("webpack");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 module.exports = {
+  assetsDir: 'docs/assets/',
   theme: {
     color: {
       link: "blue",

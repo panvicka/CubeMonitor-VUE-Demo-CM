@@ -14,13 +14,13 @@ Follow instructions on how to set up the MCU part in the [CubeMonitor-VUE-Demo-M
 1. Install [CubeMonitor](https://www.st.com/en/development-tools/stm32cubemonitor.html) on your PC. You need to create STM account if you do not have one.
 2. Install [Node.js](https://nodejs.org/en/) (needed by the ui-builder extension and also for building the VUE project)
 3. Open CubeMonitor and go the **Settings->Palette->Install** and install `node-red-contrib-uibuilder` (I am using version 4.1.4)
-    <img src="https://raw.githubusercontent.com/panvicka/CubeMonitor-VUE-Demo-CM/main/docs/assets/ui-builder.PNG" alt="installing ui-builder" width="500"/>
+    <img src="https://raw.githubusercontent.com/panvicka/CubeMonitor-VUE-Demo-CM/main/docs/assets/ui-builder.PNG" alt="installing ui-builder" width="700"/>
 4. In the repository root there is a file `DEMO-MX-Cube-Vue.json`. Go **Settings->Import** and import it.
 5. Open the ui-builder node (light purple with name `DEMO-MX-Cube-Vue`) and check **Advanced Settings**. In the Template input _dist_ must be selected.
 6. Locate the folder the `ui-builder` is using. You can check it in the ui-builder note under _uibuilder details_ option. For me it was `C:\Users\panvicka\.STMicroelectronics\stm32cubemonitor\uibuilder`. I recommend cloning the GIT repository to this folder. This should create a folder named `DEMO-MX-Cube-Vue`.
 7. In this folder run `npm install` and `npm build`. This should create files in the `dist` folder.
 8. Deploy the node (ignore the warning about the other nodes for now) and try `http://localhost:1880/DEMO-MX-Cube-Vue/`. UI should load and in the upper right corner, you should see `socket OK` status.
-<img src="https://raw.githubusercontent.com/panvicka/CubeMonitor-VUE-Demo-CM/main/docs/assets/ui_socket_ok.PNG" alt="Connection to Socket Status OK" width="500"/>
+<img src="https://raw.githubusercontent.com/panvicka/CubeMonitor-VUE-Demo-CM/main/docs/assets/ui_socket_ok.PNG" alt="Connection to Socket Status OK" width="700"/>
 
 ### Connection to MCU
 
