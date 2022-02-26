@@ -1,11 +1,11 @@
 # DEMO CubeMonitor UI with Vue
 
-Create dashboard to CubeMonitor application with custom UI elements with no minimal node-red diagram fidling.
+Create dashboard to CubeMonitor application with custom UI elements with no minimal node-red diagram fiddling.
 
 - This part contains the CubeMonitor JSON file and Vue UI source code. Check the documentation on [this repository github page](https://panvicka.github.io/CubeMonitor-VUE-Demo-CM/) 
 - The second part with MCU program can be found here [CubeMonitor-VUE-Demo-MCU](https://github.com/panvicka/CubeMonitor-VUE-Demo-MCU)
 
-This is how the NodeRed diagramm looks like. You only need to adjust the left part of it to filter and variables that should be send to the UI.
+This is how the NodeRed diagram looks like. You only need to adjust the left part of it to filter and variables that should be send to the UI.
 <img src="./docs/assets/screen_shot_with_notes.svg" alt="NodeRed diagram" width="800"/>
 
 
@@ -28,7 +28,7 @@ This is how the NodeRed diagramm looks like. You only need to adjust the left pa
 
 <img src="./docs/assets/screen_recording/UI_actions.gif" alt="Action" width="700"/>
 
-## ...implement your own elements to make your embedded engenner live easier
+## ...implement your own elements to make your embedded engineer life easier!
 
 
 
