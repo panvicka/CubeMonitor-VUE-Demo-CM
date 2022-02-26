@@ -5,7 +5,7 @@ The [STM32CubeMonitor](https://www.st.com/en/development-tools/stm32cubemonitor.
 
 The potential of this tool is endless, but the lack of documentation and examples for usage with STM MCU is scaring people away (or back to [STMStudio](https://www.st.com/en/development-tools/stm-studio-stm32.html)). Moreover the dashboard layout is inefficient, ugly (ok, that is subjective) and laggy (when handling a lot of inputs) and the way how it is created is not appealing (I guess a lot of C/C++ programmers somehow dislike visual programing and wiring function blocks with mouse). To set variable values you need to use a table... It did not impress me and I was not using it after trying it once. 
 
-Later in life I wanted to learn more about front-end development and at the same time create something useful (I like to optimize everything). That is why I decided to use the NodeRed `ui-builder` plugin to create a custom UI with all the inputs/outputs/information I want, learning JS/VUE in the progress. No more ugly laggy dashboard, much less visual programming (hell) and variables are settable using custom UI elements (toggle switches, range inputs...).
+Later in life I wanted to learn more about front-end development and at the same time create something useful (I like to optimize everything). That is why I decided to use the NodeRed `ui-builder` plugin to create a custom UI with all the inputs/outputs/information I want, learning JS/VUE in the progress. **No more ugly laggy dashboard, much less visual programming (hell) and variables are settable using custom UI elements (toggle switches, range inputs...).**
 
 It started as a small personal project but I also applied it to a programs in my work as embedded engineer and it has saved me ton of time and trouble. 
 
