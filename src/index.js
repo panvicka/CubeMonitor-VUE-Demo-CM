@@ -182,6 +182,8 @@ new Vue({
       app.msgsReceived = uibuilder.get("msgsReceived");
       app.payload = msg.payload;
 
+
+      // handle the messages send to the ui-builder
       if (msg.topic == "inputs") {
         for (var i = 0; i < msg.payload.length; i++) {
           app.inputs[i].value = msg.payload[i].value;

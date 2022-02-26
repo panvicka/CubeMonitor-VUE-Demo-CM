@@ -15,11 +15,11 @@
         </div>
       </div>
     </div>
-    <div class="lh-sm">
+    <div class="lh-sm mb-3">
       This VUE app uses <a href="https://flows.nodered.org/node/node-red-contrib-uibuilder">ui-builder</a> +
       <a href="https://www.st.com/en/development-tools/stm32cubemonitor.html">STM32CubeMonitor</a>. You can display and
       directly manipulate variables without fiddling with the nodeRED function diagramm. More info on the
-      <a href="https://panvicka.github.io/CubeMonitor-VUE-Demo-CM/">project documentation page</a>
+      <a href="https://panvicka.github.io/CubeMonitor-VUE-Demo-CM/">project documentation page.</a>
     </div>
   </div>
 </template>

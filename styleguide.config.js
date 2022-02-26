@@ -4,14 +4,14 @@ const VueLoaderPlugin = require("vue-loader/lib/plugin");
 module.exports = {
   theme: {
     color: {
-      link: "black",
-      linkHover: "blue",
+      link: "blue",
+      linkHover: "red",
     },
   },
   styles: {},
   sections: [
     {
-      name: "Introduction",
+      name: "Motivation and introduction",
       content: "docs/introduction.md",
     },
     {

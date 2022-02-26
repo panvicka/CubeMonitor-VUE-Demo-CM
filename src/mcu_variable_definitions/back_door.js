@@ -1,11 +1,11 @@
 export var back_door_def = [
   {
-    description: "Get me stuck in while(1)",
+    description: "Call while(1)",
     value: 100,
     btnType: "danger",
   },
   {
-    description: "NVIC reset me",
+    description: "NVIC reset",
     value: 200,
     btnType: "danger",
   },
