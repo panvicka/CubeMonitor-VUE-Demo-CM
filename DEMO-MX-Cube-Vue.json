@@ -22,8 +22,8 @@
         "z": "2ea644c0.cadc8c",
         "name": "myProbe_In",
         "probeconfig": "3ef7a79d.636a38",
-        "x": 470,
-        "y": 900,
+        "x": 1550,
+        "y": 1760,
         "wires": [
             [
                 "9a41ed56.50d51"
@@ -66,8 +66,9 @@
         "expressions": [],
         "statistics": [],
         "logmode": "full",
-        "x": 670,
-        "y": 900,
+        "logformat": "stcm",
+        "x": 1790,
+        "y": 1760,
         "wires": [
             [
                 "b43414d3.373d58"
@@ -84,13 +85,13 @@
         "execonfig": "b1df0fc7.7c95c",
         "variablelist": [],
         "triggerstartmode": "manual",
-        "triggername": "CM_sens_assign_overal_pressure_high",
+        "triggername": "analog_inputs[0].mx_rewrites",
         "triggerthreshold": "30000",
         "frequency": "",
         "frequencyType": "0",
         "snapshotheader": "",
         "mode": "direct",
-        "lastImportedTime": 1645554892617,
+        "lastImportedTime": 1645867196201,
         "openStatus": true,
         "x": 1730,
         "y": 1640,
@@ -107,16 +108,14 @@
         "z": "2ea644c0.cadc8c",
         "name": "",
         "func": "\nvar keys = flow.keys();\n\n// delete everything in the store\nfor(var i=0;i<flow.length;i++){\n    flow.set(keys[i], undefined);\n}\n\nvar payload=msg.payload;\n\nfor (let i =0; i<msg.payload.variablelist.length; i++) {\n    global.set(payload.variablelist[i].name+\"_adr\", payload.variablelist[i].address);  \n}\n\nnode.warn('generated new global data adresses');\n\n\n\n \n",
-        "outputs": 1,
+        "outputs": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 1920,
         "y": 1640,
-        "wires": [
-            []
-        ]
+        "wires": []
     },
     {
         "id": "b43414d3.373d58",
@@ -138,8 +137,8 @@
             "4658d38e.cfd69c",
             "eed663fe.08c43"
         ],
-        "x": 935,
-        "y": 900,
+        "x": 1895,
+        "y": 1760,
         "wires": []
     },
     {
@@ -150,8 +149,8 @@
         "links": [
             "b43414d3.373d58"
         ],
-        "x": 35,
-        "y": 1200,
+        "x": 155,
+        "y": 1160,
         "wires": [
             [
                 "789c66a0.520528",
@@ -196,7 +195,7 @@
         "type": "function",
         "z": "2ea644c0.cadc8c",
         "name": "",
-        "func": "let newMsg= {};\nlet outMsg = [];\n\nif (msg.topic === 'start') {\n    node.warn('requesting start');\n    return [null, msg];\n } else if (msg.topic === 'stop') {\n    node.warn('requesting stop');\n    return [null, msg];\n } else {\n\n\nlet address = global.get(msg.payload[0].variable);\n let value = msg.payload[0].valueToset.toString();\n \n\nvar varibleList = [];\n\nfor (let i = 0; i< msg.payload.length; i++) {\n   if (msg.payload[i].valueToset < -32768 || msg.payload[i].valueToset > 32768) {\n      varibleList.push(\n        {\n        \"address\": global.get(msg.payload[i].variable), \n        \"type\": 4, \n        \"value\": msg.payload[i].valueToset.toString()\n        });\n   } else {\n       varibleList.push(\n        {\n        \"address\": global.get(msg.payload[i].variable), \n        \"type\": 4, \n        \"value\": msg.payload[i].valueToset.toString()\n        });\n   }\n}\n\n node.warn(varibleList);\n\nmsg.payload = {\n  \"variablelist\": [...varibleList],\n  \"accesspoint\": 0\n}\n\nmsg.topic = \"write\";\nreturn [msg, null];\n}\n\n\n",
+        "func": "let newMsg= {};\nlet outMsg = [];\n\nif (msg.topic === 'start') {\n    node.warn('requesting start');\n    return [null, msg];\n } else if (msg.topic === 'stop') {\n    node.warn('requesting stop');\n    return [null, msg];\n } else {\n\n\nlet address = global.get(msg.payload[0].variable);\n let value = msg.payload[0].valueToset.toString();\n \n\nvar varibleList = [];\n\nfor (let i = 0; i< msg.payload.length; i++) {\n   if (msg.payload[i].valueToset < -32768 || msg.payload[i].valueToset > 32768) {\n      varibleList.push(\n        {\n        \"address\": global.get(msg.payload[i].variable), \n        \"type\": 4, \n        \"value\": msg.payload[i].valueToset.toString()\n        });\n   } else {\n       varibleList.push(\n        {\n        \"address\": global.get(msg.payload[i].variable), \n        \"type\": 4, \n        \"value\": msg.payload[i].valueToset.toString()\n        });\n   }\n}\n\n// uncomment this to log the values that should be send to the probe\n// node.warn(varibleList);\n\nmsg.payload = {\n  \"variablelist\": [...varibleList],\n  \"accesspoint\": 0\n}\n\nmsg.topic = \"write\";\nreturn [msg, null];\n}\n\n\n",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -251,7 +250,7 @@
         "checkall": "true",
         "repair": true,
         "outputs": 3,
-        "x": 270,
+        "x": 330,
         "y": 1180,
         "wires": [
             [
@@ -285,7 +284,7 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 530,
+        "x": 590,
         "y": 1180,
         "wires": [
             [
@@ -357,7 +356,7 @@
         "checkall": "true",
         "repair": true,
         "outputs": 2,
-        "x": 270,
+        "x": 330,
         "y": 1080,
         "wires": [
             [
@@ -388,7 +387,7 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 530,
+        "x": 590,
         "y": 1080,
         "wires": [
             [
@@ -465,7 +464,7 @@
         "checkall": "true",
         "repair": true,
         "outputs": 3,
-        "x": 280,
+        "x": 340,
         "y": 1240,
         "wires": [
             [
@@ -499,7 +498,7 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 530,
+        "x": 590,
         "y": 1240,
         "wires": [
             [
@@ -571,7 +570,7 @@
         "checkall": "true",
         "repair": true,
         "outputs": 2,
-        "x": 280,
+        "x": 340,
         "y": 1120,
         "wires": [
             [
@@ -602,7 +601,7 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 530,
+        "x": 590,
         "y": 1120,
         "wires": [
             [
@@ -666,7 +665,7 @@
         "checkall": "true",
         "repair": true,
         "outputs": 1,
-        "x": 270,
+        "x": 330,
         "y": 1040,
         "wires": [
             [
@@ -694,7 +693,7 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 530,
+        "x": 590,
         "y": 1040,
         "wires": [
             [
@@ -757,7 +756,7 @@
         "checkall": "true",
         "repair": true,
         "outputs": 1,
-        "x": 280,
+        "x": 340,
         "y": 1300,
         "wires": [
             [
@@ -785,7 +784,7 @@
         "reduceInit": "",
         "reduceInitType": "num",
         "reduceFixup": "",
-        "x": 530,
+        "x": 590,
         "y": 1300,
         "wires": [
             [
@@ -804,7 +803,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 910,
+        "x": 920,
         "y": 1300,
         "wires": [
             [
@@ -900,8 +899,8 @@
         "z": "2ea644c0.cadc8c",
         "name": "Reading out the variables",
         "info": "",
-        "x": 510,
-        "y": 860,
+        "x": 1590,
+        "y": 1720,
         "wires": []
     },
     {
@@ -910,7 +909,7 @@
         "z": "2ea644c0.cadc8c",
         "name": "User defined varibles",
         "info": "",
-        "x": 300,
+        "x": 360,
         "y": 1000,
         "wires": []
     },
@@ -930,7 +929,7 @@
         "z": "2ea644c0.cadc8c",
         "name": "set the correct array length",
         "info": "",
-        "x": 590,
+        "x": 650,
         "y": 1000,
         "wires": []
     },
@@ -978,82 +977,82 @@
                 "type": 5
             },
             {
-                "address": "0x080054a0",
+                "address": "0x08005694",
                 "name": "AHBPrescTable[0]",
                 "type": 1
             },
             {
-                "address": "0x080054aa",
+                "address": "0x0800569e",
                 "name": "AHBPrescTable[10]",
                 "type": 1
             },
             {
-                "address": "0x080054ab",
+                "address": "0x0800569f",
                 "name": "AHBPrescTable[11]",
                 "type": 1
             },
             {
-                "address": "0x080054ac",
+                "address": "0x080056a0",
                 "name": "AHBPrescTable[12]",
                 "type": 1
             },
             {
-                "address": "0x080054ad",
+                "address": "0x080056a1",
                 "name": "AHBPrescTable[13]",
                 "type": 1
             },
             {
-                "address": "0x080054ae",
+                "address": "0x080056a2",
                 "name": "AHBPrescTable[14]",
                 "type": 1
             },
             {
-                "address": "0x080054af",
+                "address": "0x080056a3",
                 "name": "AHBPrescTable[15]",
                 "type": 1
             },
             {
-                "address": "0x080054a1",
+                "address": "0x08005695",
                 "name": "AHBPrescTable[1]",
                 "type": 1
             },
             {
-                "address": "0x080054a2",
+                "address": "0x08005696",
                 "name": "AHBPrescTable[2]",
                 "type": 1
             },
             {
-                "address": "0x080054a3",
+                "address": "0x08005697",
                 "name": "AHBPrescTable[3]",
                 "type": 1
             },
             {
-                "address": "0x080054a4",
+                "address": "0x08005698",
                 "name": "AHBPrescTable[4]",
                 "type": 1
             },
             {
-                "address": "0x080054a5",
+                "address": "0x08005699",
                 "name": "AHBPrescTable[5]",
                 "type": 1
             },
             {
-                "address": "0x080054a6",
+                "address": "0x0800569a",
                 "name": "AHBPrescTable[6]",
                 "type": 1
             },
             {
-                "address": "0x080054a7",
+                "address": "0x0800569b",
                 "name": "AHBPrescTable[7]",
                 "type": 1
             },
             {
-                "address": "0x080054a8",
+                "address": "0x0800569c",
                 "name": "AHBPrescTable[8]",
                 "type": 1
             },
             {
-                "address": "0x080054a9",
+                "address": "0x0800569d",
                 "name": "AHBPrescTable[9]",
                 "type": 1
             },
@@ -1226,42 +1225,42 @@
                 "type": 5
             },
             {
-                "address": "0x080054b0",
+                "address": "0x080056a4",
                 "name": "APBPrescTable[0]",
                 "type": 1
             },
             {
-                "address": "0x080054b1",
+                "address": "0x080056a5",
                 "name": "APBPrescTable[1]",
                 "type": 1
             },
             {
-                "address": "0x080054b2",
+                "address": "0x080056a6",
                 "name": "APBPrescTable[2]",
                 "type": 1
             },
             {
-                "address": "0x080054b3",
+                "address": "0x080056a7",
                 "name": "APBPrescTable[3]",
                 "type": 1
             },
             {
-                "address": "0x080054b4",
+                "address": "0x080056a8",
                 "name": "APBPrescTable[4]",
                 "type": 1
             },
             {
-                "address": "0x080054b5",
+                "address": "0x080056a9",
                 "name": "APBPrescTable[5]",
                 "type": 1
             },
             {
-                "address": "0x080054b6",
+                "address": "0x080056aa",
                 "name": "APBPrescTable[6]",
                 "type": 1
             },
             {
-                "address": "0x080054b7",
+                "address": "0x080056ab",
                 "name": "APBPrescTable[7]",
                 "type": 1
             },
@@ -2315,57 +2314,57 @@
                 "type": 2
             },
             {
-                "address": "0x200000ad",
+                "address": "0x200000ac",
                 "name": "inputs[0].actions[0].detectable",
                 "type": 1
             },
             {
-                "address": "0x200000ae",
+                "address": "0x200000ad",
                 "name": "inputs[0].actions[0].detected",
                 "type": 1
             },
             {
-                "address": "0x200000af",
+                "address": "0x200000ae",
                 "name": "inputs[0].actions[1].detectable",
                 "type": 1
             },
             {
-                "address": "0x200000b0",
+                "address": "0x200000af",
                 "name": "inputs[0].actions[1].detected",
                 "type": 1
             },
             {
-                "address": "0x200000b1",
+                "address": "0x200000b0",
                 "name": "inputs[0].actions[2].detectable",
                 "type": 1
             },
             {
-                "address": "0x200000b2",
+                "address": "0x200000b1",
                 "name": "inputs[0].actions[2].detected",
                 "type": 1
             },
             {
-                "address": "0x200000b3",
+                "address": "0x200000b2",
                 "name": "inputs[0].actions[3].detectable",
                 "type": 1
             },
             {
-                "address": "0x200000b4",
+                "address": "0x200000b3",
                 "name": "inputs[0].actions[3].detected",
                 "type": 1
             },
             {
-                "address": "0x200000b5",
+                "address": "0x200000b4",
                 "name": "inputs[0].actions[4].detectable",
                 "type": 1
             },
             {
-                "address": "0x200000b6",
+                "address": "0x200000b5",
                 "name": "inputs[0].actions[4].detected",
                 "type": 1
             },
             {
-                "address": "0x20000090",
+                "address": "0x20000092",
                 "name": "inputs[0].counter",
                 "type": 3
             },
@@ -2425,7 +2424,7 @@
                 "type": 1
             },
             {
-                "address": "0x20000094",
+                "address": "0x20000091",
                 "name": "inputs[0].last_confirmed_hw_state",
                 "type": 2
             },
@@ -2448,72 +2447,72 @@
                 "checked": true
             },
             {
-                "address": "0x20000093",
+                "address": "0x20000095",
                 "name": "inputs[0].off_state",
                 "type": 2
             },
             {
-                "address": "0x20000092",
+                "address": "0x20000094",
                 "name": "inputs[0].on_state",
                 "type": 2
             },
             {
-                "address": "0x200000ac",
+                "address": "0x20000090",
                 "name": "inputs[0].state",
                 "type": 2
             },
             {
-                "address": "0x200000dd",
+                "address": "0x200000dc",
                 "name": "inputs[1].actions[0].detectable",
                 "type": 1
             },
             {
-                "address": "0x200000de",
+                "address": "0x200000dd",
                 "name": "inputs[1].actions[0].detected",
                 "type": 1
             },
             {
-                "address": "0x200000df",
+                "address": "0x200000de",
                 "name": "inputs[1].actions[1].detectable",
                 "type": 1
             },
             {
-                "address": "0x200000e0",
+                "address": "0x200000df",
                 "name": "inputs[1].actions[1].detected",
                 "type": 1
             },
             {
-                "address": "0x200000e1",
+                "address": "0x200000e0",
                 "name": "inputs[1].actions[2].detectable",
                 "type": 1
             },
             {
-                "address": "0x200000e2",
+                "address": "0x200000e1",
                 "name": "inputs[1].actions[2].detected",
                 "type": 1
             },
             {
-                "address": "0x200000e3",
+                "address": "0x200000e2",
                 "name": "inputs[1].actions[3].detectable",
                 "type": 1
             },
             {
-                "address": "0x200000e4",
+                "address": "0x200000e3",
                 "name": "inputs[1].actions[3].detected",
                 "type": 1
             },
             {
-                "address": "0x200000e5",
+                "address": "0x200000e4",
                 "name": "inputs[1].actions[4].detectable",
                 "type": 1
             },
             {
-                "address": "0x200000e6",
+                "address": "0x200000e5",
                 "name": "inputs[1].actions[4].detected",
                 "type": 1
             },
             {
-                "address": "0x200000c0",
+                "address": "0x200000c2",
                 "name": "inputs[1].counter",
                 "type": 3
             },
@@ -2573,7 +2572,7 @@
                 "type": 1
             },
             {
-                "address": "0x200000c4",
+                "address": "0x200000c1",
                 "name": "inputs[1].last_confirmed_hw_state",
                 "type": 2
             },
@@ -2596,72 +2595,72 @@
                 "checked": true
             },
             {
-                "address": "0x200000c3",
+                "address": "0x200000c5",
                 "name": "inputs[1].off_state",
                 "type": 2
             },
             {
-                "address": "0x200000c2",
+                "address": "0x200000c4",
                 "name": "inputs[1].on_state",
                 "type": 2
             },
             {
-                "address": "0x200000dc",
+                "address": "0x200000c0",
                 "name": "inputs[1].state",
                 "type": 2
             },
             {
-                "address": "0x2000010d",
+                "address": "0x2000010c",
                 "name": "inputs[2].actions[0].detectable",
                 "type": 1
             },
             {
-                "address": "0x2000010e",
+                "address": "0x2000010d",
                 "name": "inputs[2].actions[0].detected",
                 "type": 1
             },
             {
-                "address": "0x2000010f",
+                "address": "0x2000010e",
                 "name": "inputs[2].actions[1].detectable",
                 "type": 1
             },
             {
-                "address": "0x20000110",
+                "address": "0x2000010f",
                 "name": "inputs[2].actions[1].detected",
                 "type": 1
             },
             {
-                "address": "0x20000111",
+                "address": "0x20000110",
                 "name": "inputs[2].actions[2].detectable",
                 "type": 1
             },
             {
-                "address": "0x20000112",
+                "address": "0x20000111",
                 "name": "inputs[2].actions[2].detected",
                 "type": 1
             },
             {
-                "address": "0x20000113",
+                "address": "0x20000112",
                 "name": "inputs[2].actions[3].detectable",
                 "type": 1
             },
             {
-                "address": "0x20000114",
+                "address": "0x20000113",
                 "name": "inputs[2].actions[3].detected",
                 "type": 1
             },
             {
-                "address": "0x20000115",
+                "address": "0x20000114",
                 "name": "inputs[2].actions[4].detectable",
                 "type": 1
             },
             {
-                "address": "0x20000116",
+                "address": "0x20000115",
                 "name": "inputs[2].actions[4].detected",
                 "type": 1
             },
             {
-                "address": "0x200000f0",
+                "address": "0x200000f2",
                 "name": "inputs[2].counter",
                 "type": 3
             },
@@ -2721,7 +2720,7 @@
                 "type": 1
             },
             {
-                "address": "0x200000f4",
+                "address": "0x200000f1",
                 "name": "inputs[2].last_confirmed_hw_state",
                 "type": 2
             },
@@ -2744,17 +2743,17 @@
                 "checked": true
             },
             {
-                "address": "0x200000f3",
+                "address": "0x200000f5",
                 "name": "inputs[2].off_state",
                 "type": 2
             },
             {
-                "address": "0x200000f2",
+                "address": "0x200000f4",
                 "name": "inputs[2].on_state",
                 "type": 2
             },
             {
-                "address": "0x2000010c",
+                "address": "0x200000f0",
                 "name": "inputs[2].state",
                 "type": 2
             },
@@ -2870,8 +2869,8 @@
         ],
         "expand": true,
         "filename": "CubeMon-Vue-Demo-STM32F407VGT6U.elf",
-        "exeModifiedTime": 1644678032210,
-        "configLastUpdate": 1644678100105
+        "exeModifiedTime": 1645123557138,
+        "configLastUpdate": 1645867195767
     },
     {
         "id": "fe72fbcd.8053a8",

@@ -32,4 +32,5 @@ This is how the NodeRed diagram looks like. You only need to adjust the left par
 
 
 
-Documentation build: ([![Node.js CI](https://github.com/panvicka/CubeMonitor-VUE-Demo-CM/actions/workflows/node.js.yml/badge.svg)](https://github.com/panvicka/CubeMonitor-VUE-Demo-CM/actions/workflows/node.js.yml))
+Documentation build: 
+[![Node.js CI](https://github.com/panvicka/CubeMonitor-VUE-Demo-CM/actions/workflows/node.js.yml/badge.svg)](https://github.com/panvicka/CubeMonitor-VUE-Demo-CM/actions/workflows/node.js.yml)
